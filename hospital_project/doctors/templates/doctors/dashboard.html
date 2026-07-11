@@ -14,7 +14,14 @@
 					<a class="list-group-item">Patients</a>
 					<a class="list-group-item">Prescriptions</a>
 					<a class="list-group-item">Profile</a>
-					<a class="list-group-item">Logout</a>
+					<a href="{% url 'doctor-admin-logout' %}"
+   class="list-group-item text-danger">
+
+    <i class="bi bi-box-arrow-right"></i>
+
+    Logout
+
+</a>
 				</div>
 			</div>
 		</aside>
