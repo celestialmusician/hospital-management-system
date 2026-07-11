@@ -33,68 +33,62 @@
     <link rel="stylesheet"
           href="{% static 'css/tooplate-style.css' %}">
 
+    <script src="{% static 'js/custom.js' %}"></script>
+
     <style>
 
-        body{
-            background:#f8fafc;
+        html,
+        body {
+            overflow-x: hidden;
         }
 
-        .navbar{
-
-            background:#ffffff;
-
-            box-shadow:0 5px 20px rgba(0,0,0,.08);
-
+        body {
+            background: #f8fafc;
         }
 
-        .navbar-brand{
-
-            font-size:26px;
-
-            font-weight:700;
-
-            color:#0d6efd !important;
-
+        img {
+            max-width: 100%;
+            height: auto;
         }
 
-        .navbar-brand i{
-
-            color:#16a34a;
-
+        .container {
+            width: 100%;
         }
 
-        .navbar-nav>li>a{
-
-            font-weight:600;
-
-            color:#334155 !important;
-
-            transition:.3s;
-
+        .navbar {
+            background: #ffffff;
+            box-shadow: 0 5px 20px rgba(0, 0, 0, .08);
         }
 
-        .navbar-nav>li>a:hover{
-
-            color:#0d6efd !important;
-
+        .navbar-brand {
+            font-size: 26px;
+            font-weight: 700;
+            color: #0d6efd !important;
         }
 
-        .appointment-btn a{
-
-            background:#0d6efd !important;
-
-            color:white !important;
-
-            border-radius:30px;
-
-            padding:12px 22px !important;
-
+        .navbar-brand i {
+            color: #16a34a;
         }
 
-        .appointment-btn a:hover{
+        .navbar-nav>li>a {
+            font-weight: 600;
+            color: #334155 !important;
+            transition: .3s;
+        }
 
-            background:#2563eb !important;
+        .navbar-nav>li>a:hover {
+            color: #0d6efd !important;
+        }
 
+        .appointment-btn a {
+            background: #0d6efd !important;
+            color: white !important;
+            border-radius: 30px;
+            padding: 12px 22px !important;
+        }
+
+        .appointment-btn a:hover {
+            background: #2563eb !important;
         }
 
     </style>
@@ -103,126 +97,111 @@
 
 <body id="top">
 
-<!-- PRELOADER -->
+    <!-- PRELOADER -->
+    <section>
+        <div class="spinner">
+            <span class="spinner-rotate"></span>
+        </div>
+    </section>
 
-<section class="preloader">
+    <!-- NAVBAR -->
+    <section class="navbar navbar-default navbar-fixed-top"
+             role="navigation">
 
-<div class="spinner">
+        <div class="container">
 
-<span class="spinner-rotate"></span>
+            <div class="navbar-header">
 
-</div>
+                <button type="button"
+                        class="navbar-toggle"
+                        data-toggle="collapse"
+                        data-target=".navbar-collapse">
 
-</section>
+                    <span class="icon icon-bar"></span>
+                    <span class="icon icon-bar"></span>
+                    <span class="icon icon-bar"></span>
 
-<!-- NAVBAR -->
+                </button>
 
-<section class="navbar navbar-default navbar-fixed-top"
-         role="navigation">
+                <a href="{% url 'home' %}"
+                   class="navbar-brand">
 
-<div class="container">
+                    <i class="fa fa-hospital-o"></i>
+                    HealthCare Hospital
 
-<div class="navbar-header">
+                </a>
 
-<button
-type="button"
-class="navbar-toggle"
-data-toggle="collapse"
-data-target=".navbar-collapse">
+            </div>
 
-<span class="icon icon-bar"></span>
+            <div class="collapse navbar-collapse">
 
-<span class="icon icon-bar"></span>
+                <ul class="nav navbar-nav navbar-right">
 
-<span class="icon icon-bar"></span>
+                    <li>
+                        <a href="{% url 'home' %}">
+                            Home
+                        </a>
+                    </li>
 
-</button>
+                    <li>
+                        <a href="{% url 'home' %}#about">
+                            About
+                        </a>
+                    </li>
 
-<a href="{% url 'home' %}"
-   class="navbar-brand">
+                    <li>
+                        <a href="{% url 'doctor_list' %}">
+                            Doctors
+                        </a>
+                    </li>
 
-<i class="fa fa-hospital-o"></i>
+                    <li>
+                        <a href="{% url 'contact' %}">
+                            Contact
+                        </a>
+                    </li>
 
-HealthCare Hospital
+                    <li>
+                        <a href="{% url 'patient-login' %}">
+                            Patient Login
+                        </a>
+                    </li>
 
-</a>
+                    <li class="appointment-btn">
+                        <a href="{% url 'doctor-admin-login' %}">
+                            Doctor Login
+                        </a>
+                    </li>
 
-</div>
+                </ul>
 
-<div class="collapse navbar-collapse">
+            </div>
 
-<ul class="nav navbar-nav navbar-right">
+        </div>
 
-<li>
+    </section>
 
-<a href="{% url 'home' %}">
+    <!-- PAGE CONTENT -->
+    {% block content %}
+    {% endblock %}
 
-Home
+    <!-- JAVASCRIPT -->
+    <script src="{% static 'js/jquery.js' %}"></script>
 
-</a>
+    <script src="{% static 'js/bootstrap.min.js' %}"></script>
 
-</li>
+    <script src="{% static 'js/jquery.sticky.js' %}"></script>
 
-<li>
+    <script src="{% static 'js/jquery.stellar.min.js' %}"></script>
 
-<a href="{% url 'home' %}#about">
+    <script src="{% static 'js/wow.min.js' %}"></script>
 
-About
+    <script src="{% static 'js/smoothscroll.js' %}"></script>
 
-</a>
+    <script src="{% static 'js/owl.carousel.min.js' %}"></script>
 
-</li>
+    <script src="{% static 'js/custom.js' %}"></script>
 
-<li>
+</body>
 
-<a href="{% url 'doctor_list' %}">
-
-Doctors
-
-</a>
-
-</li>
-
-<li>
-
-<a href="{% url 'contact' %}">
-
-Contact
-
-</a>
-
-</li>
-
-<li>
-
-<a href="{% url 'patient-login' %}">
-
-Patient Login
-
-</a>
-
-</li>
-
-<li class="appointment-btn">
-
-<a href="{% url 'doctor-admin-login' %}">
-
-Doctor Login
-
-</a>
-
-</li>
-
-</ul>
-
-</div>
-
-</div>
-
-</section>
-
-<!-- PAGE CONTENT -->
-
-{% block content %}
-
-{% endblock %}
+</html>

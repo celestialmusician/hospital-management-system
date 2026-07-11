@@ -1,3 +1,4 @@
+{% load static %}
 <!DOCTYPE html>
 <html lang="en">
 
@@ -5,41 +6,95 @@
 
     <meta charset="UTF-8">
 
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="viewport"
+          content="width=device-width, initial-scale=1.0">
 
-    <title>Hospital Management System</title>
+    <title>
 
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+        HealthCare Hospital |
+        Hospital Management System
 
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css" rel="stylesheet">
+    </title>
 
-    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <meta name="description"
+          content="Modern Hospital Management System">
+
+    <meta name="keywords"
+          content="Hospital, Doctor, Appointment, Healthcare, Django">
+
+    <meta name="author"
+          content="HealthCare Hospital">
+
+
+    <link
+        href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css"
+        rel="stylesheet">
+
+
+    <link
+        href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.css"
+        rel="stylesheet">
+
+
+    <link
+        href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800&display=swap"
+        rel="stylesheet">
 
     <style>
 
         *{
+
             margin:0;
+
             padding:0;
+
             box-sizing:border-box;
+
             font-family:'Poppins',sans-serif;
+
         }
 
         html{
+
             scroll-behavior:smooth;
+
         }
 
         body{
-            background:#f8fafc;
+
             overflow-x:hidden;
+
+            background:#f8fafc;
+
+            color:#1e293b;
+
         }
 
-       
+        a{
+
+            text-decoration:none;
+
+        }
+
+        img{
+
+            max-width:100%;
+
+            display:block;
+
+        }
+
+        section{
+
+            position:relative;
+
+        }
 
         .navbar-custom{
 
             position:fixed;
 
-            top:20px;
+            top:18px;
 
             left:50%;
 
@@ -47,23 +102,25 @@
 
             width:92%;
 
-            z-index:999;
+            z-index:9999;
 
-            background:rgba(255,255,255,.15);
+            background:rgba(255,255,255,.12);
 
             backdrop-filter:blur(18px);
 
+            border:1px solid rgba(255,255,255,.20);
+
             border-radius:60px;
 
-            padding:14px 30px;
+            padding:14px 28px;
 
-            border:1px solid rgba(255,255,255,.2);
+            transition:.35s;
 
         }
 
         .navbar-brand{
 
-            color:#fff !important;
+            color:#ffffff;
 
             font-size:30px;
 
@@ -77,11 +134,11 @@
 
         }
 
-        .nav-link{
+        .navbar-nav .nav-link{
 
-            color:#fff !important;
+            color:#ffffff;
 
-            margin-left:15px;
+            margin-left:14px;
 
             font-weight:500;
 
@@ -89,9 +146,9 @@
 
         }
 
-        .nav-link:hover{
+        .navbar-nav .nav-link:hover{
 
-            color:#ffd54f !important;
+            color:#ffd54f;
 
         }
 
@@ -99,32 +156,41 @@
 
             border-radius:50px;
 
-            padding:10px 22px;
+            padding:11px 24px;
 
             font-weight:600;
 
         }
 
-        
+    
 
         .hero{
 
-    background:linear-gradient(
-        135deg,
-        #7a7878,
-        #1d4ed8,
-        #3b82f6
-    );
+            min-height:100vh;
 
-    min-height:100vh;
+            display:flex;
 
-    padding-top:140px;
+            align-items:center;
 
-    display:flex;
+            background:
 
-    align-items:center;
+            linear-gradient(
 
-}
+                135deg,
+
+                #0f172a,
+
+                #1d4ed8,
+
+                #3b82f6
+
+            );
+
+            padding-top:130px;
+
+            overflow:hidden;
+
+        }
 
         .hero::before{
 
@@ -132,17 +198,17 @@
 
             position:absolute;
 
-            width:500px;
+            width:550px;
 
-            height:500px;
+            height:550px;
 
             border-radius:50%;
 
             background:rgba(255,255,255,.08);
 
-            top:-150px;
+            right:-180px;
 
-            right:-120px;
+            top:-150px;
 
         }
 
@@ -152,65 +218,89 @@
 
             position:absolute;
 
-            width:350px;
+            width:360px;
 
-            height:350px;
+            height:360px;
 
             border-radius:50%;
 
             background:rgba(255,255,255,.08);
 
+            left:-120px;
+
             bottom:-120px;
 
-            left:-120px;
+        }
+
+        .hero-badge{
+
+            display:inline-block;
+
+            background:rgba(255,255,255,.15);
+
+            color:#ffffff;
+
+            padding:12px 22px;
+
+            border-radius:50px;
+
+            margin-bottom:25px;
+
+            backdrop-filter:blur(12px);
 
         }
 
         .hero h1{
 
-    font-size:72px;
+            color:#ffffff;
 
-    line-height:1.15;
+            font-size:72px;
 
-    font-weight:800;
+            line-height:1.15;
 
-    margin-bottom:25px;
+            font-weight:800;
 
-}
+            margin-bottom:25px;
+
+        }
 
         .hero p{
 
+            color:#e2e8f0;
+
             font-size:20px;
 
-            opacity:.9;
+            line-height:1.8;
 
-            margin-top:20px;
+            margin-bottom:35px;
 
         }
 
         .hero-btn{
 
-            padding:15px 38px;
-
             border-radius:50px;
 
-            font-weight:600;
+            padding:15px 34px;
 
-            margin-top:20px;
+            font-weight:600;
 
         }
 
         .hero-image{
 
-            animation:float 4s ease-in-out infinite;
+            border-radius:30px;
 
-            border-radius:25px;
+            box-shadow:
 
-            box-shadow:0 30px 60px rgba(0,0,0,.25);
+            0 25px 60px
+
+            rgba(0,0,0,.28);
+
+            animation:floatImage 4s ease-in-out infinite;
 
         }
 
-        @keyframes float{
+        @keyframes floatImage{
 
             0%{
 
@@ -234,23 +324,31 @@
 
         .stats{
 
-            margin-top:50px;
+            margin-top:70px;
 
         }
 
         .stats-card{
 
-            background:white;
+            background:#ffffff;
 
-            border-radius:20px;
+            border-radius:24px;
 
-            padding:25px;
+            padding:28px;
 
             text-align:center;
 
-            color:#111827;
+            box-shadow:0 18px 45px rgba(0,0,0,.12);
 
-            box-shadow:0 15px 35px rgba(0,0,0,.15);
+            transition:.35s;
+
+            height:100%;
+
+        }
+
+        .stats-card:hover{
+
+            transform:translateY(-10px);
 
         }
 
@@ -258,563 +356,146 @@
 
             color:#2563eb;
 
+            font-size:42px;
+
             font-weight:700;
 
         }
 
-        
+        .stats-card p{
 
-.services{
+            margin:0;
 
-    padding:100px 0;
+            color:#64748b;
 
-    background:#ffffff;
+            font-size:17px;
 
-}
+        }
 
-.section-title{
+    
 
-    text-align:center;
+        .section-title{
 
-    margin-bottom:60px;
+            text-align:center;
 
-}
+            margin-bottom:70px;
 
-.section-title h2{
+        }
 
-    font-size:42px;
+        .section-title h2{
 
-    font-weight:700;
+            font-size:46px;
 
-    color:#0f172a;
+            font-weight:700;
 
-}
+            color:#0f172a;
 
-.section-title p{
+            margin-bottom:15px;
 
-    color:#64748b;
+        }
 
-    font-size:18px;
+        .section-title p{
 
-}
+            color:#64748b;
 
-.service-card{
+            font-size:18px;
 
-    background:white;
+        }
 
-    border-radius:22px;
 
-    padding:40px 30px;
+        @media(max-width:991px){
 
-    text-align:center;
+            .navbar-custom{
 
-    transition:.35s;
+                width:96%;
 
-    box-shadow:0 12px 35px rgba(0,0,0,.08);
+                border-radius:22px;
 
-    height:100%;
+                padding:12px 18px;
 
-}
+            }
 
-.service-card:hover{
+            .hero{
 
-    transform:translateY(-12px);
+                text-align:center;
 
-    box-shadow:0 20px 45px rgba(37,99,235,.18);
+                padding-top:120px;
 
-}
+            }
 
-.service-icon{
+            .hero h1{
 
-    width:85px;
+                font-size:48px;
 
-    height:85px;
+            }
 
-    background:#2563eb;
+            .hero p{
 
-    color:white;
+                font-size:17px;
 
-    border-radius:50%;
+            }
 
-    display:flex;
+            .hero-image{
 
-    justify-content:center;
+                margin-top:45px;
 
-    align-items:center;
+            }
 
-    margin:auto;
+            .hero-btn{
 
-    font-size:34px;
+                width:100%;
 
-    margin-bottom:25px;
+                margin-bottom:15px;
 
-}
+            }
 
-.service-card h4{
+            .stats{
 
-    font-weight:600;
+                margin-top:40px;
 
-    margin-bottom:15px;
+            }
 
-}
+            .section-title h2{
 
-.service-card p{
+                font-size:34px;
 
-    color:#64748b;
+            }
 
-}
+        }
 
+        @media(max-width:576px){
 
+            .hero{
 
-.counter-section{
+                padding-top:105px;
 
-    padding:100px 0;
+            }
 
-    background:linear-gradient(135deg,#2563eb,#1e3a8a);
+            .hero h1{
 
-}
+                font-size:38px;
 
-.counter-card{
+            }
 
-    background:rgba(255,255,255,.12);
+            .hero p{
 
-    backdrop-filter:blur(18px);
+                font-size:16px;
 
-    border-radius:25px;
+            }
 
-    padding:40px;
+            .navbar-brand{
 
-    text-align:center;
+                font-size:24px;
 
-    color:white;
+            }
 
-    transition:.35s;
+            .section-title h2{
 
-    border:1px solid rgba(255,255,255,.2);
+                font-size:30px;
 
-}
+            }
 
-.counter-card:hover{
-
-    transform:translateY(-10px);
-
-    background:rgba(255,255,255,.18);
-
-}
-
-.counter-icon{
-
-    font-size:55px;
-
-    margin-bottom:20px;
-
-}
-
-.counter-card h2{
-
-    font-size:48px;
-
-    font-weight:700;
-
-    margin-bottom:10px;
-
-}
-
-.counter-card p{
-
-    font-size:18px;
-
-    margin:0;
-
-    opacity:.9;
-
-}
-
-
-
-.departments{
-
-    padding:100px 0;
-
-    background:#f8fafc;
-
-}
-
-.department-card{
-
-    background:white;
-
-    border-radius:25px;
-
-    padding:35px;
-
-    text-align:center;
-
-    transition:.35s;
-
-    box-shadow:0 15px 40px rgba(0,0,0,.08);
-
-    height:100%;
-
-    overflow:hidden;
-
-    position:relative;
-
-}
-
-.department-card::before{
-
-    content:"";
-
-    position:absolute;
-
-    width:100%;
-
-    height:5px;
-
-    top:0;
-
-    left:0;
-
-    background:linear-gradient(
-        90deg,
-        #2563eb,
-        #14b8a6
-    );
-
-}
-
-.department-card:hover{
-
-    transform:translateY(-12px);
-
-    box-shadow:0 25px 55px rgba(37,99,235,.18);
-
-}
-
-.department-icon{
-
-    width:90px;
-
-    height:90px;
-
-    background:linear-gradient(
-        135deg,
-        #2563eb,
-        #14b8a6
-    );
-
-    border-radius:50%;
-
-    display:flex;
-
-    justify-content:center;
-
-    align-items:center;
-
-    margin:auto;
-
-    color:white;
-
-    font-size:36px;
-
-    margin-bottom:25px;
-
-}
-
-.department-card h4{
-
-    font-weight:700;
-
-    color:#0f172a;
-
-}
-
-.department-card p{
-
-    color:#64748b;
-
-    margin-top:15px;
-
-}
-
-.department-card a{
-
-    text-decoration:none;
-
-    color:#2563eb;
-
-    font-weight:600;
-
-}
-
-
-
-.doctors{
-
-    padding:100px 0;
-
-    background:#ffffff;
-
-}
-
-.doctor-card{
-
-    background:#fff;
-
-    border-radius:25px;
-
-    overflow:hidden;
-
-    transition:.35s;
-
-    box-shadow:0 15px 40px rgba(0,0,0,.08);
-
-    height:100%;
-
-}
-
-.doctor-card:hover{
-
-    transform:translateY(-12px);
-
-    box-shadow:0 25px 55px rgba(37,99,235,.18);
-
-}
-
-.doctor-card img{
-
-    width:100%;
-
-    height:300px;
-
-    object-fit:contain;
-
-}
-
-.doctor-body{
-
-    padding:25px;
-
-}
-
-.doctor-body h4{
-
-    font-weight:700;
-
-    margin-bottom:10px;
-
-}
-
-.doctor-body p{
-
-    color:#64748b;
-
-    margin-bottom:10px;
-
-}
-
-.doctor-btn{
-
-    border-radius:50px;
-
-    font-weight:600;
-
-}
-
-
-
-.testimonials{
-
-    padding:100px 0;
-
-    background:linear-gradient(135deg,#f8fafc,#eef4ff);
-
-}
-
-.testimonial-card{
-
-    background:white;
-
-    border-radius:25px;
-
-    padding:35px;
-
-    text-align:center;
-
-    transition:.35s;
-
-    box-shadow:0 18px 45px rgba(0,0,0,.08);
-
-    height:100%;
-
-}
-
-.testimonial-card:hover{
-
-    transform:translateY(-10px);
-
-    box-shadow:0 25px 60px rgba(37,99,235,.18);
-
-}
-
-.testimonial-avatar{
-
-    width:90px;
-
-    height:90px;
-
-    border-radius:50%;
-
-    margin:auto;
-
-    object-fit:cover;
-
-    border:4px solid #2563eb;
-
-}
-
-.stars{
-
-    color:#fbbf24;
-
-    font-size:22px;
-
-    margin:20px 0;
-
-}
-
-.testimonial-card h5{
-
-    font-weight:700;
-
-    margin-top:20px;
-
-}
-
-.testimonial-card small{
-
-    color:#64748b;
-
-}
-
-
-.cta{
-
-    padding:110px 0;
-
-    background:linear-gradient(135deg,#2563eb,#14b8a6);
-
-    color:white;
-
-    text-align:center;
-
-}
-
-.cta h2{
-
-    font-size:48px;
-
-    font-weight:700;
-
-    margin-bottom:20px;
-
-}
-
-.cta p{
-
-    font-size:20px;
-
-    opacity:.9;
-
-    margin-bottom:40px;
-
-}
-
-.cta-btn{
-
-    padding:16px 40px;
-
-    border-radius:50px;
-
-    font-weight:600;
-
-    margin:10px;
-
-    transition:.35s;
-
-}
-
-.cta-btn:hover{
-
-    transform:translateY(-4px);
-
-}
-
-.btn-light.cta-btn{
-
-    color:#2563eb;
-
-}
-
-
-.cta{
-
-    padding:110px 0;
-
-    background:linear-gradient(135deg,#2563eb,#14b8a6);
-
-    color:white;
-
-    text-align:center;
-
-}
-
-.cta h2{
-
-    font-size:48px;
-
-    font-weight:700;
-
-    margin-bottom:20px;
-
-}
-
-.cta p{
-
-    font-size:20px;
-
-    opacity:.9;
-
-    margin-bottom:40px;
-
-}
-
-.cta-btn{
-
-    padding:16px 40px;
-
-    border-radius:50px;
-
-    font-weight:600;
-
-    margin:10px;
-
-    transition:.35s;
-
-}
-
-.cta-btn:hover{
-
-    transform:translateY(-4px);
-
-}
-
-.btn-light.cta-btn{
-
-    color:#2563eb;
-
-}
+        }
 
     </style>
 
@@ -822,122 +503,132 @@
 
 <body>
 
-<nav class="navbar navbar-expand-lg navbar-custom">
+<nav class="navbar navbar-expand-lg navbar-dark navbar-custom">
 
-<div class="container-fluid">
+    <div class="container">
 
-<a class="navbar-brand" href="/">
+        <a class="navbar-brand"
+           href="{% url 'home' %}">
 
-<i class="bi bi-hospital"></i>
+            <i class="bi bi-hospital"></i>
 
-MediCare+
-
-</a>
-
-<button class="navbar-toggler bg-white"
-type="button"
-data-bs-toggle="collapse"
-data-bs-target="#navbarNav">
-
-<span class="navbar-toggler-icon"></span>
-
-</button>
-
-<div class="collapse navbar-collapse justify-content-end"
-id="navbarNav">
-
-<ul class="navbar-nav align-items-center">
-
-<ul class="navbar-nav align-items-center">
-
-    <li class="nav-item">
-
-        <a class="nav-link" href="#top">
-
-            Home
+            MediCare+
 
         </a>
 
-    </li>
+        <button
+            class="navbar-toggler"
 
-    <li class="nav-item">
+            type="button"
 
-        <a class="nav-link" href="#services">
+            data-bs-toggle="collapse"
 
-            Services
+            data-bs-target="#navbarNav">
 
-        </a>
+            <span class="navbar-toggler-icon"></span>
 
-    </li>
+        </button>
 
-    <li class="nav-item">
+        <div
+            class="collapse navbar-collapse"
 
-        <a class="nav-link" href="#departments">
+            id="navbarNav">
 
-            Departments
+            <ul
+                class="navbar-nav ms-auto align-items-lg-center">
 
-        </a>
+                <li class="nav-item">
 
-    </li>
+                    <a class="nav-link"
+                       href="#top">
 
-    <li class="nav-item">
+                        Home
 
-        <a class="nav-link" href="#doctors">
+                    </a>
 
-            Doctors
+                </li>
 
-        </a>
+                <li class="nav-item">
 
-    </li>
+                    <a class="nav-link"
+                       href="#services">
 
-    <li class="nav-item">
+                        Services
 
-        <a class="nav-link" href="{% url 'contact' %}">
+                    </a>
 
-            Contact
+                </li>
 
-        </a>
+                <li class="nav-item">
 
-    </li>
+                    <a class="nav-link"
+                       href="#departments">
 
-    <li class="nav-item ms-3">
+                        Departments
 
-        <a
-        href="/accounts/patient-login/"
-        class="btn btn-light login-btn">
+                    </a>
 
-            Patient
+                </li>
 
-        </a>
+                <li class="nav-item">
 
-    </li>
+                    <a class="nav-link"
+                       href="#doctors">
 
-    <li class="nav-item ms-2">
+                        Doctors
 
-        <a
-        href="/accounts/login/"
-        class="btn btn-warning login-btn">
+                    </a>
 
-            Doctor
+                </li>
 
-        </a>
+                <li class="nav-item">
 
-    </li>
+                    <a class="nav-link"
+                       href="{% url 'contact' %}">
 
-</ul>
+                        Contact
 
+                    </a>
 
+                </li>
 
+                <li class="nav-item ms-lg-3 mt-3 mt-lg-0">
 
-</ul>
+                    <a
+                        href="{% url 'patient-login' %}"
 
-</div>
+                        class="btn btn-light login-btn">
 
-</div>
+                        Patient
+
+                    </a>
+
+                </li>
+
+                <li class="nav-item ms-lg-2 mt-3 mt-lg-0">
+
+                    <a
+                        href="{% url 'doctor-admin-login' %}"
+
+                        class="btn btn-warning login-btn">
+
+                        Doctor
+
+                    </a>
+
+                </li>
+
+            </ul>
+
+        </div>
+
+    </div>
 
 </nav>
 
-<section class="hero" id="top">
+
+<section class="hero"
+         id="top">
 
 <div class="container">
 
@@ -945,7 +636,9 @@ id="navbarNav">
 
 <div class="col-lg-6">
 
-<span class="badge bg-light text-primary px-4 py-2 rounded-pill mb-4">
+<span class="hero-badge">
+
+<i class="bi bi-shield-check"></i>
 
 Trusted Digital Healthcare
 
@@ -957,34 +650,40 @@ Smart Hospital
 
 <br>
 
-Management
-
-System
+Management System
 
 </h1>
 
 <p>
 
-Book appointments, manage prescriptions,
+Book appointments,
 
-and access healthcare services through one
+consult experienced doctors,
 
-secure digital platform.
+manage prescriptions
+
+and access your healthcare
+
+records anytime,
+
+anywhere.
 
 </p>
 
-<div class="mt-4">
+<div class="d-flex flex-wrap gap-3">
 
 <a
-href="/accounts/patient-login/"
-class="btn btn-light hero-btn me-3">
+href="{% url 'patient-login' %}"
+
+class="btn btn-light hero-btn">
 
 Book Appointment
 
 </a>
 
 <a
-href="/accounts/login/"
+href="{% url 'doctor-admin-login' %}"
+
 class="btn btn-outline-light hero-btn">
 
 Doctor Login
@@ -995,7 +694,7 @@ Doctor Login
 
 </div>
 
-<div class="col-lg-6 text-center">
+<div class="col-lg-6 text-center mt-5 mt-lg-0">
 
 <img
 
@@ -1003,75 +702,77 @@ src="https://images.unsplash.com/photo-1612349317150-e413f6a5b16d?w=900"
 
 class="img-fluid hero-image"
 
-alt="Doctor"
-
->
+alt="Doctor">
 
 </div>
 
 </div>
 
-<div class="row stats">
+<!-- ==========================
+        HERO STATS
+=========================== -->
 
-<div class="col-md-4 mb-3">
+<div class="row stats g-4">
 
-<div class="stats-card">
+    <div class="col-lg-4 col-md-4">
 
-<h2>
+        <div class="stats-card">
 
-120+
+            <h2>
 
-</h2>
+                120+
 
-<p>
+            </h2>
 
-Expert Doctors
+            <p>
 
-</p>
+                Expert Doctors
 
-</div>
+            </p>
 
-</div>
+        </div>
 
-<div class="col-md-4 mb-3">
+    </div>
 
-<div class="stats-card">
+    <div class="col-lg-4 col-md-4">
 
-<h2>
+        <div class="stats-card">
 
-15000+
+            <h2>
 
-</h2>
+                15K+
 
-<p>
+            </h2>
 
-Happy Patients
+            <p>
 
-</p>
+                Happy Patients
 
-</div>
+            </p>
 
-</div>
+        </div>
 
-<div class="col-md-4 mb-3">
+    </div>
 
-<div class="stats-card">
+    <div class="col-lg-4 col-md-4">
 
-<h2>
+        <div class="stats-card">
 
-24/7
+            <h2>
 
-</h2>
+                24×7
 
-<p>
+            </h2>
 
-Emergency Care
+            <p>
 
-</p>
+                Emergency Support
 
-</div>
+            </p>
 
-</div>
+        </div>
+
+    </div>
 
 </div>
 
@@ -1079,7 +780,10 @@ Emergency Care
 
 </section>
 
-<section class="services" id="services">
+<section
+class="py-5"
+
+id="services">
 
 <div class="container">
 
@@ -1093,7 +797,9 @@ Our Healthcare Services
 
 <p>
 
-Providing world-class healthcare with experienced doctors and modern technology.
+Professional healthcare services designed
+to provide safe, reliable and convenient
+medical support.
 
 </p>
 
@@ -1101,25 +807,31 @@ Providing world-class healthcare with experienced doctors and modern technology.
 
 <div class="row g-4">
 
-<div class="col-lg-4">
+<div class="col-lg-4 col-md-6">
 
-<div class="service-card">
+<div class="card border-0 shadow-lg rounded-4 h-100">
 
-<div class="service-icon">
+<div class="card-body text-center p-5">
 
-<i class="bi bi-heart-pulse-fill"></i>
+<div
+class="bg-primary text-white rounded-circle d-inline-flex align-items-center justify-content-center"
+
+style="width:90px;height:90px;">
+
+<i class="bi bi-heart-pulse-fill fs-1"></i>
 
 </div>
 
-<h4>
+<h4 class="mt-4">
 
 General Consultation
 
 </h4>
 
-<p>
+<p class="text-muted">
 
-Consult experienced doctors with quick appointment booking.
+Consult experienced doctors
+for diagnosis and treatment.
 
 </p>
 
@@ -1127,25 +839,33 @@ Consult experienced doctors with quick appointment booking.
 
 </div>
 
-<div class="col-lg-4">
+</div>
 
-<div class="service-card">
+<div class="col-lg-4 col-md-6">
 
-<div class="service-icon">
+<div class="card border-0 shadow-lg rounded-4 h-100">
 
-<i class="bi bi-calendar-check-fill"></i>
+<div class="card-body text-center p-5">
+
+<div
+class="bg-success text-white rounded-circle d-inline-flex align-items-center justify-content-center"
+
+style="width:90px;height:90px;">
+
+<i class="bi bi-calendar-check-fill fs-1"></i>
 
 </div>
 
-<h4>
+<h4 class="mt-4">
 
-Online Appointments
+Online Appointment
 
 </h4>
 
-<p>
+<p class="text-muted">
 
-Book appointments anytime without waiting in long queues.
+Book appointments
+without waiting in long queues.
 
 </p>
 
@@ -1153,25 +873,33 @@ Book appointments anytime without waiting in long queues.
 
 </div>
 
-<div class="col-lg-4">
+</div>
 
-<div class="service-card">
+<div class="col-lg-4 col-md-6">
 
-<div class="service-icon">
+<div class="card border-0 shadow-lg rounded-4 h-100">
 
-<i class="bi bi-capsule-pill"></i>
+<div class="card-body text-center p-5">
+
+<div
+class="bg-danger text-white rounded-circle d-inline-flex align-items-center justify-content-center"
+
+style="width:90px;height:90px;">
+
+<i class="bi bi-file-earmark-medical-fill fs-1"></i>
 
 </div>
 
-<h4>
+<h4 class="mt-4">
 
 Digital Prescription
 
 </h4>
 
-<p>
+<p class="text-muted">
 
-Doctors can generate digital prescriptions instantly.
+Receive prescriptions
+digitally after consultation.
 
 </p>
 
@@ -1179,25 +907,33 @@ Doctors can generate digital prescriptions instantly.
 
 </div>
 
-<div class="col-lg-4">
+</div>
 
-<div class="service-card">
+<div class="col-lg-4 col-md-6">
 
-<div class="service-icon">
+<div class="card border-0 shadow-lg rounded-4 h-100">
 
-<i class="bi bi-hospital-fill"></i>
+<div class="card-body text-center p-5">
+
+<div
+class="bg-warning text-white rounded-circle d-inline-flex align-items-center justify-content-center"
+
+style="width:90px;height:90px;">
+
+<i class="bi bi-hospital-fill fs-1"></i>
 
 </div>
 
-<h4>
+<h4 class="mt-4">
 
 Emergency Care
 
 </h4>
 
-<p>
+<p class="text-muted">
 
-24×7 emergency medical support with rapid response.
+24×7 emergency
+medical assistance.
 
 </p>
 
@@ -1205,25 +941,33 @@ Emergency Care
 
 </div>
 
-<div class="col-lg-4">
+</div>
 
-<div class="service-card">
+<div class="col-lg-4 col-md-6">
 
-<div class="service-icon">
+<div class="card border-0 shadow-lg rounded-4 h-100">
 
-<i class="bi bi-clipboard2-pulse-fill"></i>
+<div class="card-body text-center p-5">
+
+<div
+class="bg-info text-white rounded-circle d-inline-flex align-items-center justify-content-center"
+
+style="width:90px;height:90px;">
+
+<i class="bi bi-person-vcard-fill fs-1"></i>
 
 </div>
 
-<h4>
+<h4 class="mt-4">
 
-Medical Records
+Patient Records
 
 </h4>
 
-<p>
+<p class="text-muted">
 
-Secure digital storage of prescriptions and appointments.
+Securely access
+medical history and prescriptions.
 
 </p>
 
@@ -1231,27 +975,37 @@ Secure digital storage of prescriptions and appointments.
 
 </div>
 
-<div class="col-lg-4">
+</div>
 
-<div class="service-card">
+<div class="col-lg-4 col-md-6">
 
-<div class="service-icon">
+<div class="card border-0 shadow-lg rounded-4 h-100">
 
-<i class="bi bi-shield-check"></i>
+<div class="card-body text-center p-5">
+
+<div
+class="bg-dark text-white rounded-circle d-inline-flex align-items-center justify-content-center"
+
+style="width:90px;height:90px;">
+
+<i class="bi bi-shield-check fs-1"></i>
 
 </div>
 
-<h4>
+<h4 class="mt-4">
 
 Trusted Healthcare
 
 </h4>
 
-<p>
+<p class="text-muted">
 
-Highly qualified doctors delivering quality healthcare.
+Safe, secure
+and quality healthcare experience.
 
 </p>
+
+</div>
 
 </div>
 
@@ -1263,471 +1017,382 @@ Highly qualified doctors delivering quality healthcare.
 
 </section>
 
-<section class="counter-section">
+<section class="py-5 bg-light" id="departments">
 
-<div class="container">
+    <div class="container">
 
-<div class="row g-4">
+        <div class="section-title">
 
-<div class="col-lg-3 col-md-6">
+            <h2>
 
-<div class="counter-card">
+                Medical Departments
 
-<div class="counter-icon">
+            </h2>
 
-<i class="bi bi-person-badge-fill"></i>
+            <p>
 
-</div>
+                Explore our specialized departments with experienced healthcare professionals.
 
-<h2>
+            </p>
 
-120+
+        </div>
 
-</h2>
+        <div class="row g-4">
 
-<p>
+            {% for category in categories %}
 
-Expert Doctors
+            <div class="col-lg-3 col-md-6">
 
-</p>
+                <div class="card border-0 shadow rounded-4 h-100">
 
-</div>
+                    <div class="card-body text-center p-4">
 
-</div>
+                        <div class="mb-3">
 
-<div class="col-lg-3 col-md-6">
+                            <i class="bi bi-hospital text-primary"
+                               style="font-size:55px;"></i>
 
-<div class="counter-card">
+                        </div>
 
-<div class="counter-icon">
+                        <h5 class="fw-bold">
 
-<i class="bi bi-people-fill"></i>
+                            {{ category.name }}
 
-</div>
+                        </h5>
 
-<h2>
+                        <p class="text-muted small">
 
-15K+
+                            Experienced specialists providing high quality healthcare services.
 
-</h2>
+                        </p>
 
-<p>
+                        <a href="{% url 'doctor_list' %}"
+                           class="btn btn-outline-primary rounded-pill">
 
-Happy Patients
+                            Explore
 
-</p>
+                        </a>
 
-</div>
+                    </div>
 
-</div>
+                </div>
 
-<div class="col-lg-3 col-md-6">
+            </div>
 
-<div class="counter-card">
+            {% empty %}
 
-<div class="counter-icon">
+            <div class="col-12">
 
-<i class="bi bi-calendar-check-fill"></i>
+                <div class="alert alert-warning text-center">
 
-</div>
+                    No Departments Available
 
-<h2>
+                </div>
 
-60K+
+            </div>
 
-</h2>
+            {% endfor %}
 
-<p>
+        </div>
 
-Appointments
-
-</p>
-
-</div>
-
-</div>
-
-<div class="col-lg-3 col-md-6">
-
-<div class="counter-card">
-
-<div class="counter-icon">
-
-<i class="bi bi-award-fill"></i>
-
-</div>
-
-<h2>
-
-98%
-
-</h2>
-
-<p>
-
-Success Rate
-
-</p>
-
-</div>
-
-</div>
-
-</div>
-
-</div>
+    </div>
 
 </section>
 
-<section class="departments" id="departments">
 
-<div class="container">
+<section class="py-5" id="doctors">
 
-<div class="section-title">
+    <div class="container">
 
-<h2>
+        <div class="section-title">
 
-Medical Departments
+            <h2>
 
-</h2>
+                Meet Our Doctors
 
-<p>
+            </h2>
 
-Choose the right specialist for your healthcare needs.
+            <p>
 
-</p>
+                Our highly qualified specialists are committed to providing the best patient care.
 
-</div>
+            </p>
 
-<div class="row g-4">
+        </div>
 
-<div class="col-lg-4">
+        <div class="row g-4">
 
-<div class="department-card">
+            {% for doctor in doctors %}
 
-<div class="department-icon">
+            <div class="col-lg-4 col-md-6">
 
-<i class="bi bi-heart-pulse-fill"></i>
+                <div class="card border-0 shadow-lg rounded-4 overflow-hidden h-100">
 
-</div>
+                    {% if doctor.photo %}
 
-<h4>
+                    <img src="{{ doctor.photo.url }}"
+                         class="card-img-top"
+                         style="height:320px;object-fit:cover;"
+                         alt="{{ doctor.name }}">
 
-Cardiology
+                    {% else %}
 
-</h4>
+                    <img src="{% static 'images/default-doctor.jpg' %}"
+                         class="card-img-top"
+                         style="height:320px;object-fit:cover;"
+                         alt="Doctor">
 
-<p>
+                    {% endif %}
 
-Advanced heart care with experienced cardiologists.
+                    <div class="card-body">
 
-</p>
+                        <h4 class="fw-bold">
 
-<a href="/doctors/?category=3">
+                            Dr. {{ doctor.name }}
 
-Explore →
+                        </h4>
 
-</a>
+                        <p class="text-primary fw-semibold">
 
-</div>
+                            {{ doctor.category.name }}
 
-</div>
+                        </p>
 
-<div class="col-lg-4">
+                        <p class="text-muted">
 
-<div class="department-card">
+                            <i class="bi bi-award-fill text-warning"></i>
 
-<div class="department-icon">
+                            {{ doctor.experience }}
 
-<i class="bi bi-person-hearts"></i>
+                            Years Experience
 
-</div>
+                        </p>
 
-<h4>
+                        <p class="text-muted">
 
-Pediatrics
+                            <i class="bi bi-telephone-fill text-success"></i>
 
-</h4>
+                            {{ doctor.contact_number }}
 
-<p>
+                        </p>
 
-Specialized healthcare services for children.
+                        <div class="d-grid mt-4">
 
-</p>
+                            <a href="{% url 'doctor_detail' doctor.pk %}"
 
-<a href="/doctors/?category=2">
+                               class="btn btn-primary rounded-pill">
 
-Explore →
+                                View Profile
 
-</a>
+                            </a>
 
-</div>
+                        </div>
 
-</div>
+                    </div>
 
-<div class="col-lg-4">
+                </div>
 
-<div class="department-card">
+            </div>
 
-<div class="department-icon">
+            {% empty %}
 
-<i class="bi bi-eye-fill"></i>
+            <div class="col-12">
 
-</div>
+                <div class="alert alert-info text-center">
 
-<h4>
+                    No Doctors Available Right Now.
 
-Ophthalmology
+                </div>
 
-</h4>
+            </div>
 
-<p>
+            {% endfor %}
 
-Complete eye care with modern technology.
+        </div>
 
-</p>
-
-<a href="/doctors/?category=5">
-
-Explore →
-
-</a>
-
-</div>
-
-</div>
-
-<div class="col-lg-4">
-
-<div class="department-card">
-
-<div class="department-icon">
-
-<i class="bi bi-universal-access-circle"></i>
-
-</div>
-
-<h4>
-
-Orthopedics
-
-</h4>
-
-<p>
-
-Bone, joint and muscle care from specialists.
-
-</p>
-
-<a href="/doctors/?category=6">
-
-Explore →
-
-</a>
-
-</div>
-
-</div>
-
-<div class="col-lg-4">
-
-<div class="department-card">
-
-<div class="department-icon">
-
-<i class="bi bi-gender-female"></i>
-
-</div>
-
-<h4>
-
-Gynecology
-
-</h4>
-
-<p>
-
-Comprehensive women's healthcare services.
-
-</p>
-
-<a href="/doctors/?category=4">
-
-Explore →
-
-</a>
-
-</div>
-
-</div>
-
-<div class="col-lg-4">
-
-<div class="department-card">
-
-<div class="department-icon">
-
-<i class="bi bi-activity"></i>
-
-</div>
-
-<h4>
-
-Neurology
-
-</h4>
-
-<p>
-
-Expert diagnosis and treatment for neurological disorders.
-
-</p>
-
-<a href="/doctors/?category=7">
-
-Explore →
-
-</a>
-
-</div>
-
-</div>
-
-</div>
-
-</div>
+    </div>
 
 </section>
 
-<section class="doctors" id="doctors">
 
-<div class="container">
+<section class="py-5 bg-light">
 
-<div class="section-title">
+    <div class="container">
 
-<h2>
+        <div class="section-title">
 
-Meet Our Doctors
+            <h2>
+
+                What Our Patients Say
+
+            </h2>
+
+            <p>
+
+                Trusted by thousands of patients for quality healthcare.
+
+            </p>
+
+        </div>
+
+        <div class="row g-4">
+
+            <div class="col-lg-4">
+
+                <div class="card border-0 shadow rounded-4 h-100">
+
+                    <div class="card-body text-center p-4">
+
+                        <img
+                        src="https://randomuser.me/api/portraits/women/32.jpg"
+                        class="rounded-circle mb-3"
+                        width="90"
+                        height="90">
+
+                        <div class="text-warning mb-3">
+
+                            ★★★★★
+
+                        </div>
+
+                        <p class="text-muted">
+
+                            Excellent doctors and smooth appointment
+                            booking process. Highly recommended.
+
+                        </p>
+
+                        <h5 class="fw-bold">
+
+                            Anjali Nair
+
+                        </h5>
+
+                    </div>
+
+                </div>
+
+            </div>
+
+            <div class="col-lg-4">
+
+                <div class="card border-0 shadow rounded-4 h-100">
+
+                    <div class="card-body text-center p-4">
+
+                        <img
+                        src="https://randomuser.me/api/portraits/men/45.jpg"
+                        class="rounded-circle mb-3"
+                        width="90"
+                        height="90">
+
+                        <div class="text-warning mb-3">
+
+                            ★★★★★
+
+                        </div>
+
+                        <p class="text-muted">
+
+                            The online consultation and digital
+                            prescription feature saved me a lot of time.
+
+                        </p>
+
+                        <h5 class="fw-bold">
+
+                            Rahul Menon
+
+                        </h5>
+
+                    </div>
+
+                </div>
+
+            </div>
+
+            <div class="col-lg-4">
+
+                <div class="card border-0 shadow rounded-4 h-100">
+
+                    <div class="card-body text-center p-4">
+
+                        <img
+                        src="https://randomuser.me/api/portraits/women/65.jpg"
+                        class="rounded-circle mb-3"
+                        width="90"
+                        height="90">
+
+                        <div class="text-warning mb-3">
+
+                            ★★★★★
+
+                        </div>
+
+                        <p class="text-muted">
+
+                            Friendly staff, experienced doctors
+                            and an easy-to-use patient portal.
+
+                        </p>
+
+                        <h5 class="fw-bold">
+
+                            Meera Joseph
+
+                        </h5>
+
+                    </div>
+
+                </div>
+
+            </div>
+
+        </div>
+
+    </div>
+
+</section>
+
+
+
+<section
+class="py-5 text-white"
+
+style="background:linear-gradient(135deg,#2563eb,#1e40af);">
+
+<div class="container text-center">
+
+<h2 class="fw-bold display-5">
+
+Ready to Book Your Appointment?
 
 </h2>
 
-<p>
+<p class="lead mt-3">
 
-Our experienced specialists are here to provide the best healthcare.
-
-</p>
-
-</div>
-
-<div class="row g-4">
-
-{% for doctor in doctors %}
-
-<div class="col-lg-4 col-md-6">
-
-<div class="doctor-card">
-
-<img
-src="{{ doctor.photo.url }}"
-alt="{{ doctor.name }}">
-
-<div class="doctor-body">
-
-<h4>
-
-Dr. {{ doctor.name }}
-
-</h4>
-
-<p>
-
-<i class="bi bi-heart-pulse-fill text-primary"></i>
-
-{{ doctor.category.name }}
+Join thousands of satisfied patients
+and experience better healthcare today.
 
 </p>
 
-<p>
-
-<i class="bi bi-award-fill text-warning"></i>
-
-{{ doctor.experience }} Years Experience
-
-</p>
-
-<p>
-
-<i class="bi bi-telephone-fill text-success"></i>
-
-{{ doctor.contact_number }}
-
-</p>
+<div class="mt-4">
 
 <a
-href="/doctors/{{ doctor.id }}/"
-class="btn btn-primary w-100 doctor-btn">
 
-View Profile
+href="{% url 'patient-login' %}"
 
-</a>
-
-</div>
-
-</div>
-
-</div>
-
-{% empty %}
-
-<div class="col-12">
-
-<div class="alert alert-warning text-center">
-
-No Doctors Available
-
-</div>
-
-</div>
-
-{% endfor %}
-
-</div>
-
-</div>
-
-</section>
-
-<section class="cta">
-
-<div class="container">
-
-<h2>
-
-Ready To Take Care Of Your Health?
-
-</h2>
-
-<p>
-
-Book appointments with experienced specialists and manage your healthcare online.
-
-</p>
-
-<a
-href="/accounts/patient-login/"
-class="btn btn-light cta-btn">
-
-<i class="bi bi-calendar-check"></i>
+class="btn btn-light btn-lg rounded-pill px-5 me-3">
 
 Book Appointment
 
 </a>
 
 <a
-href="/doctors/"
-class="btn btn-outline-light cta-btn">
 
-<i class="bi bi-person-badge"></i>
+href="{% url 'doctor_list' %}"
+
+class="btn btn-outline-light btn-lg rounded-pill px-5">
 
 Find Doctors
 
@@ -1735,126 +1400,366 @@ Find Doctors
 
 </div>
 
-</section>
-
-<section class="cta">
-
-<div class="container">
-
-<h2>
-
-Ready To Take Care Of Your Health?
-
-</h2>
-
-<p>
-
-Book appointments with experienced specialists and manage your healthcare online.
-
-</p>
-
-<a
-href="/accounts/patient-login/"
-class="btn btn-light cta-btn">
-
-<i class="bi bi-calendar-check"></i>
-
-Book Appointment
-
-</a>
-
-<a
-href="/doctors/"
-class="btn btn-outline-light cta-btn">
-
-<i class="bi bi-person-badge"></i>
-
-Find Doctors
-
-</a>
-
 </div>
 
 </section>
 
 
-.testimonials{
+<footer
+class="pt-5 pb-4"
 
-    padding:100px 0;
+style="background:#0f172a;">
 
-    background:linear-gradient(135deg,#f8fafc,#eef4ff);
+<div class="container">
 
-}
+<div class="row gy-4">
 
-.testimonial-card{
+<div class="col-lg-4">
 
-    background:white;
+<h3 class="text-white">
 
-    border-radius:25px;
+<i class="bi bi-hospital text-success"></i>
 
-    padding:35px;
+MediCare+
 
-    text-align:center;
+</h3>
 
-    transition:.35s;
+<p class="text-light mt-3">
 
-    box-shadow:0 18px 45px rgba(0,0,0,.08);
+Modern Hospital Management System
+built using Django for secure,
+efficient and seamless healthcare.
 
-    height:100%;
+</p>
 
-}
+</div>
 
-.testimonial-card:hover{
+<div class="col-lg-2">
 
-    transform:translateY(-10px);
+<h5 class="text-white">
 
-    box-shadow:0 25px 60px rgba(37,99,235,.18);
+Quick Links
 
-}
+</h5>
 
-.testimonial-avatar{
+<ul class="list-unstyled mt-3">
 
-    width:90px;
+<li>
 
-    height:90px;
+<a
+href="#top"
+class="text-light text-decoration-none">
 
-    border-radius:50%;
+Home
 
-    margin:auto;
+</a>
 
-    object-fit:cover;
+</li>
 
-    border:4px solid #2563eb;
+<li class="mt-2">
 
-}
+<a
+href="#services"
+class="text-light text-decoration-none">
 
-.stars{
+Services
 
-    color:#fbbf24;
+</a>
 
-    font-size:22px;
+</li>
 
-    margin:20px 0;
+<li class="mt-2">
 
-}
+<a
+href="#departments"
+class="text-light text-decoration-none">
 
-.testimonial-card h5{
+Departments
 
-    font-weight:700;
+</a>
 
-    margin-top:20px;
+</li>
 
-}
+<li class="mt-2">
 
-.testimonial-card small{
+<a
+href="#doctors"
+class="text-light text-decoration-none">
 
-    color:#64748b;
+Doctors
 
-}
+</a>
 
+</li>
 
+</ul>
+
+</div>
+
+<div class="col-lg-3">
+
+<h5 class="text-white">
+
+Support
+
+</h5>
+
+<ul class="list-unstyled mt-3">
+
+<li>
+
+<a
+href="{% url 'contact' %}"
+class="text-light text-decoration-none">
+
+Contact Us
+
+</a>
+
+</li>
+
+<li class="mt-2">
+
+<a
+href="{% url 'patient-login' %}"
+class="text-light text-decoration-none">
+
+Patient Login
+
+</a>
+
+</li>
+
+<li class="mt-2">
+
+<a
+href="{% url 'doctor-admin-login' %}"
+class="text-light text-decoration-none">
+
+Doctor Login
+
+</a>
+
+</li>
+
+</ul>
+
+</div>
+
+<div class="col-lg-3">
+
+<h5 class="text-white">
+
+Contact
+
+</h5>
+
+<p class="text-light mt-3">
+
+<i class="bi bi-envelope-fill"></i>
+
+support@medicare.com
+
+</p>
+
+<p class="text-light">
+
+<i class="bi bi-telephone-fill"></i>
+
++91 98765 43210
+
+</p>
+
+<p class="text-light">
+
+<i class="bi bi-geo-alt-fill"></i>
+
+Trivandrum, Kerala
+
+</p>
+
+</div>
+
+</div>
+
+<hr class="border-secondary my-4">
+
+<div class="text-center text-light">
+
+© 2026 MediCare+ Hospital Management System.
+
+All Rights Reserved.
+
+</div>
+
+</div>
+
+</footer>
+
+<!-- =====================================
+            JAVASCRIPT
+====================================== -->
 
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+
+<script>
+
+//
+// Navbar Background on Scroll
+//
+
+const navbar = document.querySelector(".navbar-custom");
+
+window.addEventListener("scroll", function () {
+
+    if (window.scrollY > 60) {
+
+        navbar.style.background = "rgba(15,23,42,.92)";
+        navbar.style.boxShadow = "0 15px 40px rgba(0,0,0,.25)";
+
+    } else {
+
+        navbar.style.background = "rgba(255,255,255,.12)";
+        navbar.style.boxShadow = "none";
+
+    }
+
+});
+
+
+//
+// Active Navigation
+//
+
+const sections = document.querySelectorAll("section[id]");
+
+const navLinks = document.querySelectorAll(".navbar-nav .nav-link");
+
+window.addEventListener("scroll", () => {
+
+    let current = "";
+
+    sections.forEach(section => {
+
+        const sectionTop = section.offsetTop - 120;
+
+        if (pageYOffset >= sectionTop) {
+
+            current = section.getAttribute("id");
+
+        }
+
+    });
+
+    navLinks.forEach(link => {
+
+        link.classList.remove("active");
+
+        if (link.getAttribute("href") === "#" + current) {
+
+            link.classList.add("active");
+
+        }
+
+    });
+
+});
+
+
+//
+// Smooth Reveal Animation
+//
+
+const revealElements = document.querySelectorAll(
+
+".card,.stats-card,.hero-image,.section-title"
+
+);
+
+const observer = new IntersectionObserver(
+
+(entries)=>{
+
+entries.forEach(entry=>{
+
+if(entry.isIntersecting){
+
+entry.target.style.opacity="1";
+
+entry.target.style.transform="translateY(0px)";
+
+}
+
+});
+
+},
+
+{
+
+threshold:.15
+
+}
+
+);
+
+revealElements.forEach(el=>{
+
+el.style.opacity="0";
+
+el.style.transform="translateY(50px)";
+
+el.style.transition=".7s ease";
+
+observer.observe(el);
+
+});
+
+
+//
+// Counter Animation
+//
+
+const counters = document.querySelectorAll(".stats-card h2");
+
+counters.forEach(counter=>{
+
+const updateCounter=()=>{
+
+const target=counter.innerText.replace(/\D/g,'');
+
+const current=+counter.getAttribute("data-count")||0;
+
+const increment=Math.ceil(target/80);
+
+if(current<target){
+
+counter.setAttribute("data-count",current+increment);
+
+counter.innerText=(current+increment)+"+";
+
+setTimeout(updateCounter,25);
+
+}else{
+
+if(counter.innerText.includes("24")){
+
+counter.innerText="24×7";
+
+}else{
+
+counter.innerText=target+"+";
+
+}
+
+}
+
+}
+
+updateCounter();
+
+});
+
+</script>
 
 </body>
 

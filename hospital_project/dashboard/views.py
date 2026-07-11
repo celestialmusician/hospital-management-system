@@ -1,9 +1,10 @@
 from django.shortcuts import render
 from django.views import View
 
-from doctors.models import Doctor
+from doctors.models import Doctor,Category,Availability
 from patients.models import Patient
 from appointments.models import Appointment, Prescription
+
 
 
 class HomeView(View):
@@ -12,29 +13,15 @@ class HomeView(View):
 
     def get(self, request):
 
-        doctors = Doctor.objects.filter(
-            active_status=True
-        )[:6]
+        doctors = Doctor.objects.filter(active_status=True)
+        categories = Category.objects.filter(active_status=True)
 
         context = {
-
-            "total_doctors": Doctor.objects.count(),
-
-            "total_patients": Patient.objects.count(),
-
-            "total_appointments": Appointment.objects.count(),
-
-            "total_prescriptions": Prescription.objects.count(),
-
             "doctors": doctors,
-
+            "categories": categories,
         }
 
-        return render(
-            request,
-            self.template_name,
-            context,
-        )
+        return render(request, self.template_name, context)
     
 class ContactView(View):
 
