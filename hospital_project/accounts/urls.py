@@ -10,7 +10,7 @@ from .views import (
 
 urlpatterns = [
 
-    # Doctor / Admin
+    
     path(
         "login/",
         DoctorAdminLoginView.as_view(),
@@ -23,7 +23,6 @@ urlpatterns = [
         name="doctor-admin-logout",
     ),
 
-    # Patient
     path(
         "patient-login/",
         PatientLoginView.as_view(),

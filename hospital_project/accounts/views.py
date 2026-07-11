@@ -132,7 +132,6 @@ class PatientLoginView(View):
                 role="Patient",
             )
 
-        # Dummy password (OTP login only)
             user.set_password("patient123")
             user.save()
 
@@ -249,7 +248,6 @@ class VerifyOTPView(View):
 
         if str(otp_record.otp).strip() == str(otp).strip():
 
-            # Create Patient record if it doesn't already exist
             Patient.objects.get_or_create(
                 email=user.email,
                 defaults={
