@@ -1,0 +1,169 @@
+{% extends "base.html" %}
+
+{% block content %}
+
+<div class="container mt-5">
+
+    <div class="card shadow">
+
+        <div class="card-header bg-success text-white">
+
+            <h3>Add Prescription</h3>
+
+        </div>
+
+        <div class="card-body">
+
+            {% if messages %}
+
+                {% for message in messages %}
+
+                    <div class="alert alert-success">
+
+                        {{ message }}
+
+                    </div>
+
+                {% endfor %}
+
+            {% endif %}
+
+            <div class="mb-4">
+
+                <h5>Appointment Details</h5>
+
+                <table class="table table-bordered">
+
+                    <tr>
+
+                        <th>Patient</th>
+
+                        <td>{{ appointment.patient.name }}</td>
+
+                    </tr>
+
+                    <tr>
+
+                        <th>Doctor</th>
+
+                        <td>{{ appointment.doctor.name }}</td>
+
+                    </tr>
+
+                    <tr>
+
+                        <th>Date</th>
+
+                        <td>{{ appointment.date }}</td>
+
+                    </tr>
+
+                    <tr>
+
+                        <th>Time</th>
+
+                        <td>{{ appointment.time_slot }}</td>
+
+                    </tr>
+
+                </table>
+
+            </div>
+
+            <form method="post">
+
+                {% csrf_token %}
+
+                <div class="mb-3">
+
+                    <label class="form-label">
+
+                        Medicines
+
+                    </label>
+
+                    <textarea
+                        name="medicines"
+                        class="form-control"
+                        rows="4"
+                        required
+                    ></textarea>
+
+                </div>
+
+                <div class="mb-3">
+
+                    <label class="form-label">
+
+                        Dosage
+
+                    </label>
+
+                    <textarea
+                        name="dosage"
+                        class="form-control"
+                        rows="3"
+                        required
+                    ></textarea>
+
+                </div>
+
+                <div class="mb-3">
+
+                    <label class="form-label">
+
+                        Notes
+
+                    </label>
+
+                    <textarea
+                        name="notes"
+                        class="form-control"
+                        rows="3"
+                    ></textarea>
+
+                </div>
+
+                <div class="mb-3">
+
+                    <label class="form-label">
+
+                        Follow-up Date
+
+                    </label>
+
+                    <input
+                        type="date"
+                        name="follow_up_date"
+                        class="form-control"
+                    >
+
+                </div>
+
+                <button
+                    type="submit"
+                    class="btn btn-success"
+                >
+
+                    Save Prescription
+
+                </button>
+
+                <a
+                    href="{% url 'doctor_appointments' %}"
+                    class="btn btn-secondary"
+                >
+
+                    Cancel
+
+                </a>
+
+            </form>
+
+        </div>
+
+    </div>
+
+</div>
+
+{% endblock %}

@@ -1,0 +1,228 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <meta charset="UTF-8">
+
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <title>HealthCare Hospital | Hospital Management System</title>
+
+    <meta name="description"
+          content="Professional Hospital Management System">
+
+    <link rel="stylesheet"
+          href="{% static 'css/bootstrap.min.css' %}">
+
+    <link rel="stylesheet"
+          href="{% static 'css/font-awesome.min.css' %}">
+
+    <link rel="stylesheet"
+          href="{% static 'css/animate.css' %}">
+
+    <link rel="stylesheet"
+          href="{% static 'css/owl.carousel.css' %}">
+
+    <link rel="stylesheet"
+          href="{% static 'css/owl.theme.default.min.css' %}">
+
+    <link rel="stylesheet"
+          href="{% static 'css/tooplate-style.css' %}">
+
+    <style>
+
+        body{
+            background:#f8fafc;
+        }
+
+        .navbar{
+
+            background:#ffffff;
+
+            box-shadow:0 5px 20px rgba(0,0,0,.08);
+
+        }
+
+        .navbar-brand{
+
+            font-size:26px;
+
+            font-weight:700;
+
+            color:#0d6efd !important;
+
+        }
+
+        .navbar-brand i{
+
+            color:#16a34a;
+
+        }
+
+        .navbar-nav>li>a{
+
+            font-weight:600;
+
+            color:#334155 !important;
+
+            transition:.3s;
+
+        }
+
+        .navbar-nav>li>a:hover{
+
+            color:#0d6efd !important;
+
+        }
+
+        .appointment-btn a{
+
+            background:#0d6efd !important;
+
+            color:white !important;
+
+            border-radius:30px;
+
+            padding:12px 22px !important;
+
+        }
+
+        .appointment-btn a:hover{
+
+            background:#2563eb !important;
+
+        }
+
+    </style>
+
+</head>
+
+<body id="top">
+
+<!-- PRELOADER -->
+
+<section class="preloader">
+
+<div class="spinner">
+
+<span class="spinner-rotate"></span>
+
+</div>
+
+</section>
+
+<!-- NAVBAR -->
+
+<section class="navbar navbar-default navbar-fixed-top"
+         role="navigation">
+
+<div class="container">
+
+<div class="navbar-header">
+
+<button
+type="button"
+class="navbar-toggle"
+data-toggle="collapse"
+data-target=".navbar-collapse">
+
+<span class="icon icon-bar"></span>
+
+<span class="icon icon-bar"></span>
+
+<span class="icon icon-bar"></span>
+
+</button>
+
+<a href="{% url 'home' %}"
+   class="navbar-brand">
+
+<i class="fa fa-hospital-o"></i>
+
+HealthCare Hospital
+
+</a>
+
+</div>
+
+<div class="collapse navbar-collapse">
+
+<ul class="nav navbar-nav navbar-right">
+
+<li>
+
+<a href="{% url 'home' %}">
+
+Home
+
+</a>
+
+</li>
+
+<li>
+
+<a href="{% url 'home' %}#about">
+
+About
+
+</a>
+
+</li>
+
+<li>
+
+<a href="{% url 'doctor_list' %}">
+
+Doctors
+
+</a>
+
+</li>
+
+<li>
+
+<a href="{% url 'contact' %}">
+
+Contact
+
+</a>
+
+</li>
+
+<li>
+
+<a href="{% url 'patient-login' %}">
+
+Patient Login
+
+</a>
+
+</li>
+
+<li class="appointment-btn">
+
+<a href="{% url 'doctor-admin-login' %}">
+
+Doctor Login
+
+</a>
+
+</li>
+
+</ul>
+
+</div>
+
+</div>
+
+</section>
+
+<!-- PAGE CONTENT -->
+
+{% block content %}
+
+{% endblock %}

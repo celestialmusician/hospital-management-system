@@ -1,0 +1,126 @@
+{% extends 'base.html' %}
+{% block content %}
+
+<div class="container">
+	<div class="row">
+		<aside class="col-md-3">
+			<div class="panel panel-default">
+				<div class="panel-heading">
+					<h4>HMS</h4>
+				</div>
+				<div class="list-group">
+					<a class="list-group-item active">Dashboard</a>
+					<a class="list-group-item">Availability</a>
+					<a class="list-group-item">Patients</a>
+					<a class="list-group-item">Prescriptions</a>
+					<a class="list-group-item">Profile</a>
+					<a class="list-group-item">Logout</a>
+				</div>
+			</div>
+		</aside>
+
+		<main class="col-md-9">
+			<div class="row">
+				<div class="col-xs-8">
+					<h2>Doctor Dashboard</h2>
+					<p class="text-muted">Welcome back, Dr. John</p>
+				</div>
+				<div class="col-xs-4 text-right">
+					<a class="btn btn-primary" href="#">Edit Profile</a>
+				</div>
+			</div>
+
+			<div class="row" style="margin-top:20px">
+				<div class="col-md-3">
+					<div class="panel panel-default text-center">
+						<div class="panel-body">
+							<small>Total Patients</small>
+							<h3>245</h3>
+						</div>
+					</div>
+				</div>
+				<div class="col-md-3">
+					<div class="panel panel-default text-center">
+						<div class="panel-body">
+							<small>Today's Appointments</small>
+							<h3>18</h3>
+						</div>
+					</div>
+				</div>
+				<div class="col-md-3">
+					<div class="panel panel-default text-center">
+						<div class="panel-body">
+							<small>Pending</small>
+							<h3>6</h3>
+						</div>
+					</div>
+				</div>
+				<div class="col-md-3">
+					<div class="panel panel-default text-center">
+						<div class="panel-body">
+							<small>Completed</small>
+							<h3>12</h3>
+						</div>
+					</div>
+				</div>
+			</div>
+
+			<div class="row" style="margin-top:20px">
+				<div class="col-lg-8">
+					<div class="panel panel-default">
+						<div class="panel-heading"><h4>Today's Appointments</h4></div>
+						<div class="panel-body">
+							<table class="table table-striped">
+								<thead>
+									<tr><th>Time</th><th>Patient</th><th>Department</th><th>Status</th><th></th></tr>
+								</thead>
+								<tbody>
+									<tr><td>09:00</td><td>Aswin</td><td>General</td><td><span class="label label-warning">Waiting</span></td><td><a class="btn btn-xs btn-success">Prescription</a></td></tr>
+									<tr><td>10:00</td><td>Rahul</td><td>Cardiology</td><td><span class="label label-primary">Booked</span></td><td><a class="btn btn-xs btn-success">Prescription</a></td></tr>
+									<tr><td>11:00</td><td>Anu</td><td>Dental</td><td><span class="label label-success">Completed</span></td><td><a class="btn btn-xs btn-default">View</a></td></tr>
+								</tbody>
+							</table>
+						</div>
+					</div>
+
+					<div class="panel panel-default">
+						<div class="panel-heading"><h4>Add Prescription</h4></div>
+						<div class="panel-body">
+							<form>
+								<div class="row">
+									<div class="col-md-6"><div class="form-group"><input class="form-control" placeholder="Patient Name"></div></div>
+									<div class="col-md-6"><div class="form-group"><input class="form-control" placeholder="Disease"></div></div>
+									<div class="col-md-12"><div class="form-group"><textarea class="form-control" rows="4" placeholder="Medicines & Notes"></textarea></div></div>
+									<div class="col-md-6"><div class="form-group"><input type="date" class="form-control"></div></div>
+									<div class="col-md-6"><button class="btn btn-primary btn-block">Save Prescription</button></div>
+								</div>
+							</form>
+						</div>
+					</div>
+				</div>
+
+				<div class="col-lg-4">
+					<div class="panel panel-default">
+						<div class="panel-heading"><h4>Availability</h4></div>
+						<div class="panel-body">
+							<input type="date" class="form-control" style="margin-bottom:10px">
+							<button class="btn btn-success btn-block">Save Available Date</button>
+						</div>
+					</div>
+
+					<div class="panel panel-default">
+						<div class="panel-heading"><h4>Doctor Profile</h4></div>
+						<div class="panel-body">
+							<p><strong>Name:</strong> Dr. John</p>
+							<p><strong>Specialization:</strong> Cardiology</p>
+							<p><strong>Email:</strong> doctor@example.com</p>
+							<p><strong>Phone:</strong> +91 9876543210</p>
+						</div>
+					</div>
+				</div>
+			</div>
+
+		</main>
+	</div>
+</div>
+{% endblock %}

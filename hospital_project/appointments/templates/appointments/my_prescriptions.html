@@ -1,0 +1,118 @@
+{% extends "base.html" %}
+
+{% block content %}
+
+<div class="container mt-5">
+
+    <div class="d-flex justify-content-between align-items-center mb-4">
+
+        <h2 class="fw-bold">
+            💊 My Prescriptions
+        </h2>
+
+        <a href="{% url 'patient_home' %}" class="btn btn-secondary">
+            ← Back to Dashboard
+        </a>
+
+    </div>
+
+    {% if prescriptions %}
+
+    <div class="row">
+
+        {% for prescription in prescriptions %}
+
+        <div class="col-lg-6 mb-4">
+
+            <div class="card shadow border-0 h-100">
+
+                <div class="card-header bg-primary text-white">
+
+                    <h5 class="mb-0">
+
+                        Dr. {{ prescription.appointment.doctor.name }}
+
+                    </h5>
+
+                </div>
+
+                <div class="card-body">
+
+                    <p>
+                        <strong>Appointment Date :</strong>
+                        {{ prescription.appointment.date }}
+                    </p>
+
+                    <p>
+                        <strong>Medicines :</strong><br>
+                        {{ prescription.medicines }}
+                    </p>
+
+                    <p>
+                        <strong>Dosage :</strong><br>
+                        {{ prescription.dosage }}
+                    </p>
+
+                    <p>
+                        <strong>Doctor Notes :</strong><br>
+                        {{ prescription.notes|default:"No notes available." }}
+                    </p>
+
+                    <p>
+                        <strong>Follow Up :</strong>
+
+                        {% if prescription.follow_up_date %}
+
+                            {{ prescription.follow_up_date }}
+
+                        {% else %}
+
+                            No Follow Up
+
+                        {% endif %}
+
+                    </p>
+
+                </div>
+
+                <div class="card-footer bg-light">
+
+                    <span class="badge bg-success">
+
+                        Prescription Available
+
+                    </span>
+
+                </div>
+
+            </div>
+
+        </div>
+
+        {% endfor %}
+
+    </div>
+
+    {% else %}
+
+    <div class="alert alert-info text-center p-5">
+
+        <h4>No Prescriptions Found</h4>
+
+        <p>
+            Your prescriptions will appear here after your doctor adds them.
+        </p>
+
+        <a href="{% url 'doctor_list' %}" class="btn btn-primary">
+
+            Book Appointment
+
+        </a>
+
+    </div>
+
+    {% endif %}
+
+</div>
+
+{% endblock %}

@@ -1,0 +1,191 @@
+{% extends "base.html" %}
+
+{% block content %}
+
+<div class="container mt-5">
+
+    {% if messages %}
+
+        {% for message in messages %}
+
+            <div class="alert alert-success">
+
+                {{ message }}
+
+            </div>
+
+        {% endfor %}
+
+    {% endif %}
+
+    <div class="card shadow">
+
+        <div class="card-header bg-primary text-white">
+
+            <h3>Book Appointment</h3>
+
+        </div>
+
+        <div class="card-body">
+
+            <div class="row">
+
+                <div class="col-md-4 text-center">
+
+                    {% if doctor.photo %}
+
+                    <img
+                        src="{{ doctor.photo.url }}"
+                        class="img-fluid rounded shadow"
+                        style="height:250px;object-fit:cover;"
+                        alt="{{ doctor.name }}"
+                    >
+
+                    {% else %}
+
+                    <img
+                        src="https://via.placeholder.com/250x250?text=Doctor"
+                        class="img-fluid rounded shadow"
+                        alt="Doctor"
+                    >
+
+                    {% endif %}
+
+                </div>
+
+                <div class="col-md-8">
+
+                    <h3>{{ doctor.name }}</h3>
+
+                    <hr>
+
+                    <p>
+
+                        <strong>Category :</strong>
+
+                        {{ doctor.category.name }}
+
+                    </p>
+
+                    <p>
+
+                        <strong>Experience :</strong>
+
+                        {{ doctor.experience }} Years
+
+                    </p>
+
+                    <p>
+
+                        <strong>Contact :</strong>
+
+                        {{ doctor.contact_number }}
+
+                    </p>
+
+                </div>
+
+            </div>
+
+            <hr>
+
+            {% if available_dates %}
+
+            <form method="post">
+
+                {% csrf_token %}
+
+                <div class="mb-3">
+
+                    <label class="form-label">
+
+                        Select Available Date
+
+                    </label>
+
+                    <select
+                        class="form-select"
+                        name="date"
+                        required
+                    >
+
+                        {% for slot in available_dates %}
+
+                        <option value="{{ slot.date }}">
+
+                            {{ slot.date }}
+
+                            ({{ slot.start_time }} - {{ slot.end_time }})
+
+                        </option>
+
+                        {% endfor %}
+
+                    </select>
+
+                </div>
+
+                <div class="mb-3">
+
+                    <label class="form-label">
+
+                        Time Slot
+
+                    </label>
+
+                    <input
+                        type="text"
+                        class="form-control"
+                        name="time_slot"
+                        placeholder="Example: 10:00 AM - 10:30 AM"
+                        required
+                    >
+
+                </div>
+
+                <button
+                    type="submit"
+                    class="btn btn-success"
+                >
+
+                    Book Appointment
+
+                </button>
+
+                <a
+                    href="{% url 'doctor_detail' doctor.id %}"
+                    class="btn btn-secondary"
+                >
+
+                    Back
+
+                </a>
+
+            </form>
+
+            {% else %}
+
+            <div class="alert alert-warning">
+
+                No available slots for this doctor.
+
+            </div>
+
+            <a
+                href="{% url 'doctor_detail' doctor.id %}"
+                class="btn btn-secondary"
+            >
+
+                Back
+
+            </a>
+
+            {% endif %}
+
+        </div>
+
+    </div>
+
+</div>
+
+{% endblock %}

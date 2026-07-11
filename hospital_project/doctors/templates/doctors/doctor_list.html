@@ -1,0 +1,208 @@
+{% extends "base.html" %}
+
+{% block content %}
+
+<div class="container py-5">
+
+    <div class="d-flex justify-content-between align-items-center mb-4">
+
+        <h2 class="fw-bold">
+
+            👨‍⚕️ Doctors
+
+        </h2>
+
+        <a href="{% url 'patient_home' %}" class="btn btn-secondary">
+
+            ← Back
+
+        </a>
+
+    </div>
+
+    <form method="get" class="row g-3 mb-5">
+
+        <div class="col-md-5">
+
+            <input
+                type="text"
+                name="search"
+                class="form-control"
+                placeholder="Search Doctor..."
+                value="{{ search }}"
+            >
+
+        </div>
+
+        <div class="col-md-4">
+
+            <select
+                name="category"
+                class="form-select"
+            >
+
+                <option value="">
+
+                    All Categories
+
+                </option>
+
+                {% for category in categories %}
+
+                <option
+                    value="{{ category.id }}"
+                    {% if selected_category == category.id|stringformat:"s" %}
+                    selected
+                    {% endif %}
+                >
+
+                    {{ category.name }}
+
+                </option>
+
+                {% endfor %}
+
+            </select>
+
+        </div>
+
+        <div class="col-md-2">
+
+            <button
+                type="submit"
+                class="btn btn-primary w-100"
+            >
+
+                🔍 Search
+
+            </button>
+
+        </div>
+
+        <div class="col-md-1">
+
+            <a
+                href="{% url 'doctor_list' %}"
+                class="btn btn-secondary w-100"
+            >
+
+                ↻
+
+            </a>
+
+        </div>
+
+    </form>
+
+    <div class="row">
+
+        {% for doctor in doctors %}
+
+        <div class="col-lg-4 col-md-6 mb-4">
+
+            <div class="card shadow border-0 h-100">
+
+                {% if doctor.photo %}
+
+                <img
+                    src="{{ doctor.photo.url }}"
+                    class="card-img-top"
+                    style="height:300px;object-fit:cover;"
+                >
+
+                {% else %}
+
+                <img
+                    src="https://via.placeholder.com/400x300?text=Doctor"
+                    class="card-img-top"
+                >
+
+                {% endif %}
+
+                <div class="card-body">
+
+                    <h4 class="fw-bold">
+
+                        Dr. {{ doctor.name }}
+
+                    </h4>
+
+                    <span class="badge bg-primary mb-3">
+
+                        {{ doctor.category.name }}
+
+                    </span>
+
+                    <p>
+
+                        <strong>Experience :</strong>
+
+                        {{ doctor.experience }} Years
+
+                    </p>
+
+                    <p>
+
+                        <strong>Contact :</strong>
+
+                        {{ doctor.contact_number }}
+
+                    </p>
+
+                </div>
+
+                <div class="card-footer bg-white border-0">
+
+                    <a
+                        href="{% url 'doctor_detail' doctor.id %}"
+                        class="btn btn-success w-100"
+                    >
+
+                        View Profile
+
+                    </a>
+
+                </div>
+
+            </div>
+
+        </div>
+
+        {% empty %}
+
+        <div class="col-12">
+
+            <div class="alert alert-warning text-center p-5">
+
+                <h4>
+
+                    No Doctors Found
+
+                </h4>
+
+                <p>
+
+                    Try another category or search keyword.
+
+                </p>
+
+                <a
+                    href="{% url 'doctor_list' %}"
+                    class="btn btn-primary"
+                >
+
+                    View All Doctors
+
+                </a>
+
+            </div>
+
+        </div>
+
+        {% endfor %}
+
+    </div>
+
+</div>
+
+{% endblock %}

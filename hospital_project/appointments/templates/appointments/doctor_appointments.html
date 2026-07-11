@@ -1,0 +1,152 @@
+{% extends "base.html" %}
+
+{% block content %}
+
+<div class="container mt-5">
+
+    {% if messages %}
+
+        {% for message in messages %}
+
+            <div class="alert alert-success">
+
+                {{ message }}
+
+            </div>
+
+        {% endfor %}
+
+    {% endif %}
+
+    <div class="card shadow">
+
+        <div class="card-header bg-primary text-white">
+
+            <h3>Doctor Appointments</h3>
+
+        </div>
+
+        <div class="card-body">
+
+            {% if appointments %}
+
+            <div class="table-responsive">
+
+                <table class="table table-striped table-bordered">
+
+                    <thead class="table-dark">
+
+                        <tr>
+
+                            <th>#</th>
+
+                            <th>Patient</th>
+
+                            <th>Date</th>
+
+                            <th>Time Slot</th>
+
+                            <th>Status</th>
+
+                            <th>Action</th>
+
+                        </tr>
+
+                    </thead>
+
+                    <tbody>
+
+                        {% for appointment in appointments %}
+
+                        <tr>
+
+                            <td>{{ forloop.counter }}</td>
+
+                            <td>{{ appointment.patient.name }}</td>
+
+                            <td>{{ appointment.date }}</td>
+
+                            <td>{{ appointment.time_slot }}</td>
+
+                            <td>
+
+                                {% if appointment.status == "Upcoming" %}
+
+                                    <span class="badge bg-warning text-dark">
+
+                                        Upcoming
+
+                                    </span>
+
+                                {% elif appointment.status == "Completed" %}
+
+                                    <span class="badge bg-success">
+
+                                        Completed
+
+                                    </span>
+
+                                {% else %}
+
+                                    <span class="badge bg-danger">
+
+                                        Cancelled
+
+                                    </span>
+
+                                {% endif %}
+
+                            </td>
+
+                            <td>
+
+                                {% if appointment.status == "Upcoming" %}
+
+                                <a
+                                    href="{% url 'add_prescription' appointment.id %}"
+                                    class="btn btn-success btn-sm"
+                                >
+
+                                    Add Prescription
+
+                                </a>
+
+                                {% else %}
+
+                                <span class="text-success fw-bold">
+
+                                    Prescription Added
+
+                                </span>
+
+                                {% endif %}
+
+                            </td>
+
+                        </tr>
+
+                        {% endfor %}
+
+                    </tbody>
+
+                </table>
+
+            </div>
+
+            {% else %}
+
+            <div class="alert alert-warning text-center">
+
+                <h5>No Appointments Available</h5>
+
+            </div>
+
+            {% endif %}
+
+        </div>
+
+    </div>
+
+</div>
+
+{% endblock %}

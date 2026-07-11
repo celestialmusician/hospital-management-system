@@ -1,0 +1,1832 @@
+{% extends "patients/base.html" %}
+{% load static %}
+
+{% block title %}Patient Dashboard | Hospital Management{% endblock %}
+
+{% block extra_css %}
+
+<link rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css">
+
+<style>
+
+:root{
+
+--primary:#0d6efd;
+--primary-dark:#0b5ed7;
+--success:#1bb55c;
+--danger:#dc3545;
+--warning:#ffc107;
+--light:#f8fbff;
+--dark:#1b2430;
+--text:#5c6773;
+--border:#edf2f7;
+--radius:22px;
+--shadow:0 15px 45px rgba(20,40,90,.08);
+
+}
+
+body{
+
+background:#f4f8fc;
+
+}
+
+.dashboard-header{
+
+background:linear-gradient(135deg,#0d6efd,#3aa0ff);
+border-radius:28px;
+padding:45px;
+overflow:hidden;
+position:relative;
+color:#fff;
+margin-bottom:35px;
+
+}
+
+.dashboard-header::before{
+
+content:"";
+position:absolute;
+right:-120px;
+top:-120px;
+width:350px;
+height:350px;
+background:rgba(255,255,255,.08);
+border-radius:50%;
+
+}
+
+.dashboard-header::after{
+
+content:"";
+position:absolute;
+left:-80px;
+bottom:-80px;
+width:220px;
+height:220px;
+background:rgba(255,255,255,.05);
+border-radius:50%;
+
+}
+
+.welcome-title{
+
+font-size:34px;
+font-weight:800;
+
+}
+
+.welcome-subtitle{
+
+font-size:15px;
+opacity:.9;
+
+}
+
+.quick-card{
+
+background:#fff;
+border:none;
+border-radius:22px;
+box-shadow:var(--shadow);
+transition:.35s;
+
+}
+
+.quick-card:hover{
+
+transform:translateY(-6px);
+
+}
+
+.quick-icon{
+
+width:70px;
+height:70px;
+border-radius:18px;
+display:flex;
+align-items:center;
+justify-content:center;
+font-size:28px;
+margin-bottom:18px;
+
+}
+
+.icon-blue{
+
+background:#eaf3ff;
+color:#0d6efd;
+
+}
+
+.icon-green{
+
+background:#e9fff2;
+color:#13b05f;
+
+}
+
+.icon-orange{
+
+background:#fff3e0;
+color:#ff9800;
+
+}
+
+.icon-red{
+
+background:#ffe8e8;
+color:#ef4444;
+
+}
+
+.quick-card h4{
+
+font-weight:700;
+
+}
+
+.quick-card p{
+
+color:#6d7d8b;
+margin-bottom:0;
+
+}
+
+.section-title{
+
+font-size:28px;
+font-weight:800;
+margin-bottom:25px;
+
+}
+
+.health-card{
+
+background:#fff;
+border-radius:22px;
+border:none;
+box-shadow:var(--shadow);
+
+}
+
+.health-progress{
+
+height:9px;
+border-radius:30px;
+
+}
+
+.doctor-card{
+
+border:none;
+border-radius:22px;
+overflow:hidden;
+box-shadow:var(--shadow);
+transition:.35s;
+
+}
+
+.doctor-card:hover{
+
+transform:translateY(-7px);
+
+}
+
+.doctor-image{
+
+width:100%;
+height:250px;
+object-fit:cover;
+
+}
+
+.doctor-avatar{
+
+width:70px;
+height:70px;
+border-radius:50%;
+object-fit:cover;
+
+}
+
+.appointment-card{
+
+border:none;
+border-radius:22px;
+box-shadow:var(--shadow);
+
+}
+
+.prescription-card{
+
+border:none;
+border-radius:22px;
+box-shadow:var(--shadow);
+
+}
+
+.lab-card{
+
+border:none;
+border-radius:22px;
+box-shadow:var(--shadow);
+
+}
+
+.timeline{
+
+position:relative;
+padding-left:28px;
+
+}
+
+.timeline::before{
+
+content:"";
+position:absolute;
+left:8px;
+top:0;
+bottom:0;
+width:2px;
+background:#d9e6f7;
+
+}
+
+.timeline-item{
+
+position:relative;
+padding-bottom:30px;
+
+}
+
+.timeline-item::before{
+
+content:"";
+position:absolute;
+left:-24px;
+top:4px;
+width:16px;
+height:16px;
+border-radius:50%;
+background:#0d6efd;
+
+}
+
+.notification-item{
+
+padding:16px;
+border-radius:16px;
+background:#f8fbff;
+margin-bottom:15px;
+
+}
+
+.tip-card{
+
+background:linear-gradient(135deg,#0d6efd,#4da4ff);
+color:#fff;
+border:none;
+border-radius:22px;
+overflow:hidden;
+
+}
+
+.tip-card ul{
+
+padding-left:20px;
+
+}
+
+.tip-card li{
+
+margin-bottom:12px;
+
+}
+
+.table thead{
+
+background:#f5f8fb;
+
+}
+
+.table th{
+
+border:none;
+
+}
+
+.table td{
+
+vertical-align:middle;
+
+}
+
+@media(max-width:991px){
+
+.dashboard-header{
+
+padding:30px;
+
+}
+
+.welcome-title{
+
+font-size:27px;
+
+}
+
+}
+
+</style>
+
+{% endblock %}
+
+{% block content %}
+
+<div class="container py-5">
+
+<div class="dashboard-header">
+
+<div class="row align-items-center">
+
+<div class="col-lg-8">
+
+<h1 class="display-4 fw-bold mb-3">
+
+    Welcome Back,
+
+    <span class="text-primary">
+
+        {{ patient_email }}
+
+    </span>
+
+</h1>
+
+<p class="lead text-muted mb-4">
+
+    Manage your appointments, prescriptions, medical history and healthcare services from one secure dashboard.
+
+</p>
+
+<div class="d-flex flex-wrap gap-3">
+
+    <a href="{% url 'doctor_list' %}"
+
+       class="btn btn-primary btn-lg rounded-pill px-4">
+
+        <i class="fa fa-user-md me-2"></i>
+
+        Find Doctors
+
+    </a>
+
+    <a href="{% url 'my_appointments' %}"
+
+       class="btn btn-outline-primary btn-lg rounded-pill px-4">
+
+        <i class="fa fa-calendar me-2"></i>
+
+        My Appointments
+
+    </a>
+
+</div>
+
+<p class="welcome-subtitle mt-3">
+
+Your health dashboard helps you manage appointments,
+medical records, prescriptions, lab reports,
+consultations and wellness activities from one place.
+
+</p>
+
+<div class="mt-4 d-flex flex-wrap gap-3">
+
+<a href="{% url 'doctor_list' %}"
+class="btn btn-light btn-lg rounded-pill px-4">
+
+<i class="fa-solid fa-calendar-plus me-2"></i>
+
+Book Appointment
+
+</a>
+
+<a href="{% url 'patient_profile' %}"
+class="btn btn-outline-light btn-lg rounded-pill px-4">
+
+<i class="fa-solid fa-user me-2"></i>
+
+My Profile
+
+</a>
+
+</div>
+
+</div>
+
+<div class="col-lg-4 text-center">
+
+<img src="{% static 'images/patient-banner.png' %}"
+     class="img-fluid"
+     style="max-height:420px;"
+     filter:drop-shadow(0 20px 35px rgba(0,0,0,.20));
+     alt="Patient">
+
+</div>
+
+</div>
+
+</div>
+
+<div class="row g-4 mb-5">
+
+<div class="col-lg-3 col-md-6">
+
+<div class="card quick-card h-100">
+
+<div class="card-body text-center p-4">
+
+<div class="quick-icon icon-blue">
+
+<i class="fa-solid fa-calendar-check"></i>
+
+</div>
+
+<h4>{{ upcoming_appointments.count }}</h4>
+
+<p>Upcoming Appointments</p>
+
+</div>
+
+</div>
+
+</div>
+
+<div class="col-lg-3 col-md-6">
+
+<div class="card quick-card h-100">
+
+<div class="card-body text-center p-4">
+
+<div class="quick-icon icon-green">
+
+<i class="fa-solid fa-file-medical"></i>
+
+</div>
+
+<h4>{{ prescriptions.count }}</h4>
+
+<p>Prescriptions</p>
+
+</div>
+
+</div>
+
+</div>
+
+<div class="col-lg-3 col-md-6">
+
+<div class="card quick-card h-100">
+
+<div class="card-body text-center p-4">
+
+<div class="quick-icon icon-orange">
+
+<i class="fa-solid fa-flask"></i>
+
+</div>
+
+<h4>{{ reports.count }}</h4>
+
+<p>Lab Reports</p>
+
+</div>
+
+</div>
+
+</div>
+
+<div class="col-lg-3 col-md-6">
+
+<div class="card quick-card h-100">
+
+<div class="card-body text-center p-4">
+
+<div class="quick-icon icon-red">
+
+<i class="fa-solid fa-user-doctor"></i>
+
+</div>
+
+<h4>{{ doctors.count }}</h4>
+
+<p>Doctors Available</p>
+
+</div>
+
+</div>
+
+</div>
+
+</div>
+
+
+
+<div class="row g-4 mb-5">
+
+    <div class="col-lg-8">
+
+        <div class="card health-card h-100">
+
+            <div class="card-body p-4">
+
+                <div class="d-flex justify-content-between align-items-center mb-4">
+
+                    <div>
+
+                        <h4 class="fw-bold mb-1">Health Overview</h4>
+
+                        <p class="text-muted mb-0">
+                            Monitor your health status and recent activities.
+                        </p>
+
+                    </div>
+
+                    <span class="badge bg-success px-3 py-2 rounded-pill">
+                        Healthy
+                    </span>
+
+                </div>
+
+                <div class="row g-4">
+
+                    <div class="col-md-6">
+
+                        <label class="fw-semibold mb-2">
+                            Overall Health Score
+                        </label>
+
+                        <div class="progress health-progress">
+
+                            <div class="progress-bar bg-success"
+                                 style="width:92%">
+
+                            </div>
+
+                        </div>
+
+                        <small class="text-success fw-semibold">
+                            92%
+                        </small>
+
+                    </div>
+
+                    <div class="col-md-6">
+
+                        <label class="fw-semibold mb-2">
+                            Medication Adherence
+                        </label>
+
+                        <div class="progress health-progress">
+
+                            <div class="progress-bar bg-primary"
+                                 style="width:84%">
+
+                            </div>
+
+                        </div>
+
+                        <small class="text-primary fw-semibold">
+                            84%
+                        </small>
+
+                    </div>
+
+                </div>
+
+                <hr class="my-4">
+
+                <div class="row text-center g-4">
+
+                    <div class="col-md-3">
+
+                        <h3 class="fw-bold text-primary">
+                            {{ upcoming_appointments.count }}
+                        </h3>
+
+                        <small class="text-muted">
+                            Appointments
+                        </small>
+
+                    </div>
+
+                    <div class="col-md-3">
+
+                        <h3 class="fw-bold text-success">
+                            {{ prescriptions.count }}
+                        </h3>
+
+                        <small class="text-muted">
+                            Prescriptions
+                        </small>
+
+                    </div>
+
+                    <div class="col-md-3">
+
+                        <h3 class="fw-bold text-warning">
+                            {{ reports.count }}
+                        </h3>
+
+                        <small class="text-muted">
+                            Reports
+                        </small>
+
+                    </div>
+
+                    <div class="col-md-3">
+
+                        <h3 class="fw-bold text-danger">
+                            {{ notifications.count }}
+                        </h3>
+
+                        <small class="text-muted">
+                            Alerts
+                        </small>
+
+                    </div>
+
+                </div>
+
+            </div>
+
+        </div>
+
+    </div>
+
+    <div class="col-lg-4">
+
+        <div class="card health-card h-100">
+
+            <div class="card-body p-4">
+
+                <h4 class="fw-bold mb-4">
+
+                    Quick Actions
+
+                </h4>
+
+                <div class="d-grid gap-3">
+
+                    <a href="{% url 'doctor_list' %}"
+                       class="btn btn-primary btn-lg rounded-pill">
+
+                        <i class="fa-solid fa-calendar-plus me-2"></i>
+
+                        Book Appointment
+
+                    </a>
+
+                    <a href="{% url 'my_prescriptions' %}"
+                       class="btn btn-outline-primary btn-lg rounded-pill">
+
+                        <i class="fa-solid fa-prescription me-2"></i>
+
+                        View Prescriptions
+
+                    </a>
+
+                    <a href="{% url 'my_prescriptions' %}"
+   class="btn btn-outline-success btn-lg rounded-pill">
+
+    <i class="fa-solid fa-file-waveform me-2"></i>
+
+    Medical Reports
+
+</a>
+
+                    <a href="{% url 'patient_profile' %}"
+                       class="btn btn-outline-dark btn-lg rounded-pill">
+
+                        <i class="fa-solid fa-user me-2"></i>
+
+                        Edit Profile
+
+                    </a>
+
+                </div>
+
+            </div>
+
+        </div>
+
+    </div>
+
+</div>
+
+<section class="mb-5">
+
+    <div class="d-flex justify-content-between align-items-center mb-4">
+
+        <div>
+
+            <h3 class="section-title mb-1">
+
+                Top Specialists
+
+            </h3>
+
+            <p class="text-muted mb-0">
+
+                Consult with experienced doctors.
+
+            </p>
+
+        </div>
+
+        <a href="{% url 'doctor_list' %}"
+           class="btn btn-outline-primary rounded-pill">
+
+            View All Doctors
+
+        </a>
+
+    </div>
+
+    <div class="row g-4">
+
+        {% for doctor in doctors %}
+
+        <div class="col-lg-4 col-md-6">
+
+            <div class="card doctor-card h-100">
+
+                {% if doctor.profile_image %}
+
+                <img src="{{ doctor.profile_image.url }}"
+                     class="doctor-image"
+                     alt="{{ doctor.get_full_name }}">
+
+                {% else %}
+
+                <img src="{% static 'images/default-doctor.jpg' %}"
+                     class="doctor-image"
+                     alt="Doctor">
+
+                {% endif %}
+
+                <div class="card-body p-4">
+
+                    <h5 class="fw-bold">
+
+                        Dr. {{ doctor.get_full_name }}
+
+                    </h5>
+
+                    <span class="badge bg-primary-subtle text-primary mb-3">
+
+                        {{ doctor.specialization }}
+
+                    </span>
+
+                    <p class="text-muted">
+
+                        {{ doctor.bio|truncatewords:20 }}
+
+                    </p>
+
+                    <div class="d-flex justify-content-between mt-4">
+
+                        <span>
+
+                            <i class="fa-solid fa-star text-warning"></i>
+
+                            4.9
+
+                        </span>
+
+                        <span>
+
+                            <i class="fa-solid fa-user-group text-primary"></i>
+
+                            1200+
+
+                        </span>
+
+                    </div>
+
+                    <div class="d-grid mt-4">
+
+                        <a href="{% url 'doctor_detail' doctor.id %}"
+                           class="btn btn-primary rounded-pill">
+
+                            View Profile
+
+                        </a>
+
+                    </div>
+
+                </div>
+
+            </div>
+
+        </div>
+
+        {% empty %}
+
+        <div class="col-12">
+
+            <div class="alert alert-light border text-center rounded-4 p-5">
+
+                <i class="fa-solid fa-user-doctor display-4 text-primary mb-3"></i>
+
+                <h5>No Doctors Available</h5>
+
+            </div>
+
+        </div>
+
+        {% endfor %}
+
+    </div>
+
+</section>
+
+
+<section class="mb-5">
+
+    <div class="d-flex justify-content-between align-items-center mb-4">
+
+        <div>
+
+            <h3 class="section-title mb-1">
+                Upcoming Appointments
+            </h3>
+
+            <p class="text-muted mb-0">
+                Stay updated with your scheduled consultations.
+            </p>
+
+        </div>
+
+        <a href="{% url 'my_appointments' %}"
+           class="btn btn-outline-primary rounded-pill px-4">
+
+            View All
+
+        </a>
+
+    </div>
+
+    <div class="row g-4">
+
+        {% for appointment in upcoming_appointments %}
+
+        <div class="col-lg-6">
+
+            <div class="card appointment-card h-100">
+
+                <div class="card-body p-4">
+
+                    <div class="d-flex justify-content-between">
+
+                        <div class="d-flex">
+
+                            {% if appointment.doctor.profile_image %}
+
+                            <img src="{{ appointment.doctor.profile_image.url }}"
+                                 class="doctor-avatar me-3"
+                                 alt="Doctor">
+
+                            {% else %}
+
+                            <img src="{% static 'images/default-doctor.jpg' %}"
+                                 class="doctor-avatar me-3"
+                                 alt="Doctor">
+
+                            {% endif %}
+
+                            <div>
+
+                                <h5 class="fw-bold mb-1">
+
+                                    Dr. {{ appointment.doctor.get_full_name }}
+
+                                </h5>
+
+                                <span class="badge bg-primary-subtle text-primary">
+
+                                    {{ appointment.doctor.specialization }}
+
+                                </span>
+
+                            </div>
+
+                        </div>
+
+                        {% if appointment.status == "Confirmed" %}
+
+                        <span class="badge bg-success px-3 py-2">
+                            Confirmed
+                        </span>
+
+                        {% elif appointment.status == "Pending" %}
+
+                        <span class="badge bg-warning text-dark px-3 py-2">
+                            Pending
+                        </span>
+
+                        {% else %}
+
+                        <span class="badge bg-danger px-3 py-2">
+                            Cancelled
+                        </span>
+
+                        {% endif %}
+
+                    </div>
+
+                    <hr>
+
+                    <div class="row gy-3">
+
+                        <div class="col-md-6">
+
+                            <small class="text-muted d-block">
+
+                                Appointment Date
+
+                            </small>
+
+                            <strong>
+
+                                {{ appointment.date }}
+
+                            </strong>
+
+                        </div>
+
+                        <div class="col-md-6">
+
+                            <small class="text-muted d-block">
+
+                                Time
+
+                            </small>
+
+                            <strong>
+
+                                {{ appointment.time }}
+
+                            </strong>
+
+                        </div>
+
+                        <div class="col-md-6">
+
+                            <small class="text-muted d-block">
+
+                                Department
+
+                            </small>
+
+                            <strong>
+
+                                {{ appointment.department }}
+
+                            </strong>
+
+                        </div>
+
+                        <div class="col-md-6">
+
+                            <small class="text-muted d-block">
+
+                                Room
+
+                            </small>
+
+                            <strong>
+
+                                {{ appointment.room_number }}
+
+                            </strong>
+
+                        </div>
+
+                    </div>
+
+                    <div class="d-flex flex-wrap gap-2 mt-4">
+
+                        <a href="{% url 'appointment_detail' appointment.id %}"
+                           class="btn btn-primary rounded-pill">
+
+                            Details
+
+                        </a>
+
+                        <a href="{% url 'reschedule_appointment' appointment.id %}"
+                           class="btn btn-outline-primary rounded-pill">
+
+                            Reschedule
+
+                        </a>
+
+                        <a href="{% url 'cancel_appointment' appointment.id %}"
+                           class="btn btn-outline-danger rounded-pill">
+
+                            Cancel
+
+                        </a>
+
+                    </div>
+
+                </div>
+
+            </div>
+
+        </div>
+
+        {% empty %}
+
+        <div class="col-12">
+
+            <div class="card border-0 shadow-sm rounded-4">
+
+                <div class="card-body text-center py-5">
+
+                    <i class="fa-solid fa-calendar-xmark display-3 text-primary mb-4"></i>
+
+                    <h4 class="fw-bold">
+
+                        No Upcoming Appointments
+
+                    </h4>
+
+                    <p class="text-muted">
+
+                        Schedule an appointment with our specialists.
+
+                    </p>
+
+                    <a href="{% url 'doctor_list' %}"
+                       class="btn btn-primary rounded-pill px-5">
+
+                        Book Appointment
+
+                    </a>
+
+                </div>
+
+            </div>
+
+        </div>
+
+        {% endfor %}
+
+    </div>
+
+</section>
+
+
+<section class="mb-5">
+
+    <div class="d-flex justify-content-between align-items-center mb-4">
+
+        <div>
+
+            <h3 class="section-title mb-1">
+
+                Recent Prescriptions
+
+            </h3>
+
+            <p class="text-muted mb-0">
+
+                Your latest medicines prescribed by doctors.
+
+            </p>
+
+        </div>
+
+        <a href="{% url 'my_prescriptions' %}"
+           class="btn btn-outline-primary rounded-pill">
+
+            View All
+
+        </a>
+
+    </div>
+
+    <div class="row g-4">
+
+        {% for prescription in prescriptions|slice:":4" %}
+
+        <div class="col-lg-6">
+
+            <div class="card prescription-card">
+
+                <div class="card-body p-4">
+
+                    <div class="d-flex justify-content-between align-items-center">
+
+                        <div>
+
+                            <h5 class="fw-bold">
+
+                                {{ prescription.title }}
+
+                            </h5>
+
+                            <small class="text-muted">
+
+                                {{ prescription.created_at|date:"d M Y" }}
+
+                            </small>
+
+                        </div>
+
+                        <span class="badge bg-success">
+
+                            Active
+
+                        </span>
+
+                    </div>
+
+                    <hr>
+
+                    <p class="text-muted mb-4">
+
+                        {{ prescription.description|truncatewords:25 }}
+
+                    </p>
+
+                    <a href="{% url 'prescription_detail' prescription.id %}"
+                       class="btn btn-primary rounded-pill">
+
+                        View Prescription
+
+                    </a>
+
+                </div>
+
+            </div>
+
+        </div>
+
+        {% empty %}
+
+        <div class="col-12">
+
+            <div class="alert alert-light border rounded-4 text-center py-5">
+
+                <i class="fa-solid fa-prescription display-4 text-primary mb-3"></i>
+
+                <h5>No Prescriptions Found</h5>
+
+            </div>
+
+        </div>
+
+        {% endfor %}
+
+    </div>
+
+</section>
+
+
+<section class="mb-5">
+
+    <div class="d-flex justify-content-between align-items-center mb-4">
+
+        <div>
+
+            <h3 class="section-title mb-1">
+                Recent Lab Reports
+            </h3>
+
+            <p class="text-muted mb-0">
+                Access and download your latest diagnostic reports.
+            </p>
+
+        </div>
+
+        <a href="{% url 'my_prescriptions' %}">
+           class="btn btn-outline-primary rounded-pill px-4">
+
+            View All Reports
+
+        </a>
+
+    </div>
+
+    <div class="row g-4">
+
+        {% for report in reports|slice:":6" %}
+
+        <div class="col-lg-4 col-md-6">
+
+            <div class="card lab-card h-100">
+
+                <div class="card-body p-4">
+
+                    <div class="d-flex justify-content-between align-items-start mb-3">
+
+                        <div>
+
+                            <div class="quick-icon icon-blue mb-3">
+
+                                <i class="fa-solid fa-file-waveform"></i>
+
+                            </div>
+
+                            <h5 class="fw-bold mb-1">
+
+                                {{ report.title }}
+
+                            </h5>
+
+                            <small class="text-muted">
+
+                                {{ report.created_at|date:"d M Y" }}
+
+                            </small>
+
+                        </div>
+
+                        {% if report.status == "Normal" %}
+
+                        <span class="badge bg-success">
+
+                            Normal
+
+                        </span>
+
+                        {% elif report.status == "Pending" %}
+
+                        <span class="badge bg-warning text-dark">
+
+                            Pending
+
+                        </span>
+
+                        {% else %}
+
+                        <span class="badge bg-danger">
+
+                            Review
+
+                        </span>
+
+                        {% endif %}
+
+                    </div>
+
+                    <p class="text-muted">
+
+                        {{ report.description|truncatewords:22 }}
+
+                    </p>
+
+                    <div class="d-flex gap-2 mt-4">
+
+                        <a href="{% url 'report_detail' report.id %}"
+                           class="btn btn-primary rounded-pill">
+
+                            View
+
+                        </a>
+
+                        {% if report.file %}
+
+                        <a href="{{ report.file.url }}"
+                           class="btn btn-outline-primary rounded-pill"
+                           download>
+
+                            Download
+
+                        </a>
+
+                        {% endif %}
+
+                    </div>
+
+                </div>
+
+            </div>
+
+        </div>
+
+        {% empty %}
+
+        <div class="col-12">
+
+            <div class="card border-0 shadow-sm rounded-4">
+
+                <div class="card-body text-center py-5">
+
+                    <i class="fa-solid fa-vial-circle-check display-3 text-primary mb-4"></i>
+
+                    <h4 class="fw-bold">
+
+                        No Reports Available
+
+                    </h4>
+
+                    <p class="text-muted mb-0">
+
+                        Your laboratory reports will appear here once uploaded.
+
+                    </p>
+
+                </div>
+
+            </div>
+
+        </div>
+
+        {% endfor %}
+
+    </div>
+
+</section>
+
+<!-- ===================== Medical Timeline ===================== -->
+
+<section class="mb-5">
+
+    <div class="card health-card">
+
+        <div class="card-body p-4">
+
+            <div class="d-flex justify-content-between align-items-center mb-4">
+
+                <div>
+
+                    <h3 class="section-title mb-1">
+
+                        Medical Timeline
+
+                    </h3>
+
+                    <p class="text-muted mb-0">
+
+                        Your recent healthcare activities.
+
+                    </p>
+
+                </div>
+
+            </div>
+
+            <div class="timeline">
+
+                {% for history in medical_history %}
+
+                <div class="timeline-item">
+
+                    <h5 class="fw-bold">
+
+                        {{ history.title }}
+
+                    </h5>
+
+                    <small class="text-muted">
+
+                        {{ history.date|date:"d M Y" }}
+
+                    </small>
+
+                    <p class="text-muted mt-2 mb-0">
+
+                        {{ history.description }}
+
+                    </p>
+
+                </div>
+
+                {% empty %}
+
+                <div class="timeline-item">
+
+                    <h5 class="fw-bold">
+
+                        No Medical History
+
+                    </h5>
+
+                    <p class="text-muted mb-0">
+
+                        Your consultation history will appear here.
+
+                    </p>
+
+                </div>
+
+                {% endfor %}
+
+            </div>
+
+        </div>
+
+    </div>
+
+</section>
+
+<!-- ===================== Notifications ===================== -->
+
+<section class="mb-5">
+
+    <div class="row g-4">
+
+        <div class="col-lg-7">
+
+            <div class="card health-card h-100">
+
+                <div class="card-body p-4">
+
+                    <h3 class="section-title mb-4">
+
+                        Notifications
+
+                    </h3>
+
+                    {% for notification in notifications %}
+
+                    <div class="notification-item">
+
+                        <div class="d-flex justify-content-between align-items-start">
+
+                            <div>
+
+                                <h6 class="fw-bold mb-1">
+
+                                    {{ notification.title }}
+
+                                </h6>
+
+                                <p class="text-muted mb-2">
+
+                                    {{ notification.message }}
+
+                                </p>
+
+                                <small class="text-secondary">
+
+                                    {{ notification.created_at|timesince }} ago
+
+                                </small>
+
+                            </div>
+
+                            {% if not notification.is_read %}
+
+                            <span class="badge bg-danger">
+
+                                New
+
+                            </span>
+
+                            {% endif %}
+
+                        </div>
+
+                    </div>
+
+                    {% empty %}
+
+                    <div class="text-center py-5">
+
+                        <i class="fa-solid fa-bell-slash display-4 text-primary mb-3"></i>
+
+                        <h5>
+
+                            No Notifications
+
+                        </h5>
+
+                    </div>
+
+                    {% endfor %}
+
+                </div>
+
+            </div>
+
+        </div>
+
+        <div class="col-lg-5">
+
+            <div class="card tip-card h-100">
+
+                <div class="card-body p-4">
+
+                    <h3 class="fw-bold mb-4">
+
+                        Today's Health Tips
+
+                    </h3>
+
+                    <ul class="mb-0">
+
+                        <li>
+                            Drink at least 2–3 litres of water daily.
+                        </li>
+
+                        <li>
+                            Walk for 30 minutes to improve heart health.
+                        </li>
+
+                        <li>
+                            Take prescribed medicines on time.
+                        </li>
+
+                        <li>
+                            Maintain 7–8 hours of quality sleep.
+                        </li>
+
+                        <li>
+                            Schedule regular preventive health checkups.
+                        </li>
+
+                    </ul>
+
+                </div>
+
+            </div>
+
+        </div>
+
+    </div>
+
+</section>
+
+
+<section class="mb-5">
+
+    <div class="row g-4">
+
+        <div class="col-lg-4">
+
+            <div class="card health-card h-100">
+
+                <div class="card-body p-4 text-center">
+
+                    <div class="quick-icon icon-red mx-auto mb-4">
+
+                        <i class="fa-solid fa-truck-medical"></i>
+
+                    </div>
+
+                    <h4 class="fw-bold mb-3">
+
+                        Emergency
+
+                    </h4>
+
+                    <p class="text-muted">
+
+                        Need immediate medical assistance?
+                        Contact our emergency response team.
+
+                    </p>
+
+                    <a href="tel:+911234567890"
+                       class="btn btn-danger rounded-pill w-100">
+
+                        <i class="fa-solid fa-phone me-2"></i>
+
+                        Call Emergency
+
+                    </a>
+
+                </div>
+
+            </div>
+
+        </div>
+
+        <div class="col-lg-4">
+
+            <div class="card health-card h-100">
+
+                <div class="card-body p-4 text-center">
+
+                    <div class="quick-icon icon-blue mx-auto mb-4">
+
+                        <i class="fa-solid fa-headset"></i>
+
+                    </div>
+
+                    <h4 class="fw-bold mb-3">
+
+                        24 × 7 Support
+
+                    </h4>
+
+                    <p class="text-muted">
+
+                        Our patient support team is always
+                        available to assist you.
+
+                    </p>
+
+                    <a href="{% url 'contact' %}"
+                       class="btn btn-primary rounded-pill w-100">
+
+                        Contact Support
+
+                    </a>
+
+                </div>
+
+            </div>
+
+        </div>
+
+        <div class="col-lg-4">
+
+            <div class="card health-card h-100">
+
+                <div class="card-body p-4 text-center">
+
+                    <div class="quick-icon icon-green mx-auto mb-4">
+
+                        <i class="fa-solid fa-heart-pulse"></i>
+
+                    </div>
+
+                    <h4 class="fw-bold mb-3">
+
+                        Health Checkup
+
+                    </h4>
+
+                    <p class="text-muted">
+
+                        Schedule your annual preventive
+                        health examination.
+
+                    </p>
+
+                    <a href="{% url 'doctor_list' %}"
+                       class="btn btn-success rounded-pill w-100">
+
+                        Book Checkup
+
+                    </a>
+
+                </div>
+
+            </div>
+
+        </div>
+
+    </div>
+
+</section>
+
+<!-- ===================== Health Statistics ===================== -->
+
+<section class="mb-5">
+
+    <div class="card health-card">
+
+        <div class="card-body p-4">
+
+            <div class="row text-center g-4">
+
+                <div class="col-lg-3 col-md-6">
+
+                    <i class="fa-solid fa-user-doctor fa-2x text-primary mb-3"></i>
+
+                    <h3 class="fw-bold">
+                        250+
+                    </h3>
+
+                    <p class="text-muted mb-0">
+
+                        Specialist Doctors
+
+                    </p>
+
+                </div>
+
+                <div class="col-lg-3 col-md-6">
+
+                    <i class="fa-solid fa-bed-pulse fa-2x text-success mb-3"></i>
+
+                    <h3 class="fw-bold">
+
+                        500+
+
+                    </h3>
+
+                    <p class="text-muted mb-0">
+
+                        Hospital Beds
+
+                    </p>
+
+                </div>
+
+                <div class="col-lg-3 col-md-6">
+
+                    <i class="fa-solid fa-hospital fa-2x text-warning mb-3"></i>
+
+                    <h3 class="fw-bold">
+
+                        24×7
+
+                    </h3>
+
+                    <p class="text-muted mb-0">
+
+                        Emergency Care
+
+                    </p>
+
+                </div>
+
+                <div class="col-lg-3 col-md-6">
+
+                    <i class="fa-solid fa-face-smile fa-2x text-danger mb-3"></i>
+
+                    <h3 class="fw-bold">
+
+                        98%
+
+                    </h3>
+
+                    <p class="text-muted mb-0">
+
+                        Patient Satisfaction
+
+                    </p>
+
+                </div>
+
+            </div>
+
+        </div>
+
+    </div>
+
+</section>
+
+<!-- ===================== Footer CTA ===================== -->
+
+<section class="mb-5">
+
+    <div class="card border-0 text-white overflow-hidden"
+         style="border-radius:30px;
+                background:linear-gradient(135deg,#0d6efd,#3d9cff);">
+
+        <div class="card-body p-5 text-center">
+
+            <h2 class="fw-bold mb-3">
+
+                Your Health, Our Commitment
+
+            </h2>
+
+            <p class="mb-4 opacity-75">
+
+                Manage appointments, prescriptions,
+                reports and consultations effortlessly
+                with our digital healthcare platform.
+
+            </p>
+
+            <div class="d-flex justify-content-center flex-wrap gap-3">
+
+                <a href="{% url 'doctor_list' %}"
+                   class="btn btn-light btn-lg rounded-pill px-5">
+
+                    Book Appointment
+
+                </a>
+
+                <a href="{% url 'contact' %}"
+                   class="btn btn-outline-light btn-lg rounded-pill px-5">
+
+                    Contact Hospital
+
+                </a>
+
+            </div>
+
+        </div>
+
+    </div>
+
+</section>
+
+</div>
+
+{% endblock %}
+
