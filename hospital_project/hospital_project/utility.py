@@ -10,22 +10,122 @@ from django.template.loader import render_to_string
 
 from decouple import config
 
-def generate_otp():
+def send_email(subject, otp, recipient):
 
-    otp = ''.join(random.choices(string.digits,k=4))
+    html_message = f"""
+    <!DOCTYPE html>
+    <html>
+    <head>
+        <style>
+            body {{
+                font-family: Arial, sans-serif;
+                background: #f4f7fb;
+                padding: 30px;
+            }}
 
-    return otp
+            .container {{
+                max-width: 600px;
+                margin: auto;
+                background: white;
+                border-radius: 12px;
+                overflow: hidden;
+                box-shadow: 0 5px 20px rgba(0,0,0,.1);
+            }}
 
+            .header {{
+                background: #0d6efd;
+                color: white;
+                padding: 20px;
+                text-align: center;
+            }}
 
+            .content {{
+                padding: 30px;
+            }}
 
-def send_email(recipient,template,subject,context):
+            .otp {{
+                font-size: 32px;
+                font-weight: bold;
+                text-align: center;
+                background: #eef5ff;
+                color: #0d6efd;
+                padding: 20px;
+                border-radius: 10px;
+                letter-spacing: 6px;
+                margin: 20px 0;
+            }}
 
-    sender = config('EMAIL_HOST_USER')
+            .footer {{
+                background: #f8f9fa;
+                padding: 20px;
+                text-align: center;
+                color: #666;
+                font-size: 14px;
+            }}
+        </style>
+    </head>
 
-    content = render_to_string(template,context)
+    <body>
 
-    msg = EmailMultiAlternatives(from_email=sender,to=[recipient],subject=subject)
+        <div class="container">
 
-    msg.attach_alternative(content,'text/html')
+            <div class="header">
 
-    msg.send()
+                <h2>🏥 HealthCare Hospital</h2>
+
+            </div>
+
+            <div class="content">
+
+                <h3>Hello,</h3>
+
+                <p>
+
+                    Your One-Time Password (OTP) for login is:
+
+                </p>
+
+                <div class="otp">
+
+                    {otp}
+
+                </div>
+
+                <p>
+
+                    This OTP is valid for 5 minutes.
+
+                </p>
+
+                <p>
+
+                    If you didn't request this OTP,
+                    simply ignore this email.
+
+                </p>
+
+            </div>
+
+            <div class="footer">
+
+                © 2026 HealthCare Hospital
+
+            </div>
+
+        </div>
+
+    </body>
+
+    </html>
+    """
+
+    message = EmailMultiAlternatives(
+        subject,
+        f"Your OTP is {otp}",
+        settings.DEFAULT_FROM_EMAIL,
+        [recipient],
+    )
+
+    message.attach_alternative(html_message, "text/html")
+
+    message.send()
