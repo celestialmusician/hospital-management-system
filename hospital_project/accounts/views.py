@@ -1,3 +1,5 @@
+from concurrent.futures import thread
+
 from django.shortcuts import render, redirect
 from django.contrib.auth import authenticate, login, logout
 from django.views import View
@@ -8,6 +10,8 @@ from .forms import DoctorAdminLoginForm, PatientLoginForm
 from .models import Profile, OTP
 from hospital_project.utility import send_email
 from patients.models import Patient
+from django.conf import settings
+from django.core.mail import EmailMultiAlternatives
 
 
 
@@ -136,31 +140,23 @@ class PatientLoginView(View):
             user.save()
 
         otp_obj, created = OTP.objects.get_or_create(
-            profile=user
+            profile=user,
         )
 
         otp = otp_obj.generate_otp()
 
         request.session["patient_email"] = user.email
 
-        template = "emails/otp.html"
-
-        subject = "Hospital Management System - OTP"
-
-        context = {
-            "user": user.first_name or user.username,
-            "otp": otp,
-        }
+        subject = "HealthCare Hospital - Login Verification Code"
 
         try:
 
             thread = threading.Thread(
                 target=send_email,
                 args=(
-                    user.email,
-                    template,
                     subject,
-                    context,
+                    otp,
+                    user.email,
                 ),
             )
 
@@ -172,7 +168,7 @@ class PatientLoginView(View):
 
             messages.error(
                 request,
-                "Unable to send OTP email."
+                "Unable to send OTP email.",
             )
 
             return render(
@@ -185,7 +181,7 @@ class PatientLoginView(View):
 
         messages.success(
             request,
-            "OTP has been sent to your email."
+            "OTP has been sent to your email.",
         )
 
         return redirect("verify-otp")

@@ -10,6 +10,8 @@ from django.template.loader import render_to_string
 
 from decouple import config
 
+from django.conf import settings
+
 def send_email(subject, otp, recipient):
 
     html_message = f"""
@@ -127,5 +129,7 @@ def send_email(subject, otp, recipient):
     )
 
     message.attach_alternative(html_message, "text/html")
+    
+    print("Sending OTP to:", recipient)
 
     message.send()
