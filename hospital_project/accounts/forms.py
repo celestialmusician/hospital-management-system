@@ -54,3 +54,35 @@ class PatientLoginForm(forms.Form):
             )
 
         return email
+    
+    
+class PatientSignupForm(forms.Form):
+
+    name = forms.CharField(
+        max_length=100,
+        widget=forms.TextInput(
+            attrs={
+                "class": "form-control",
+                "placeholder": "Full Name",
+            }
+        ),
+    )
+
+    email = forms.EmailField(
+        widget=forms.EmailInput(
+            attrs={
+                "class": "form-control",
+                "placeholder": "Email Address",
+            }
+        ),
+    )
+
+    phone = forms.CharField(
+        max_length=15,
+        widget=forms.TextInput(
+            attrs={
+                "class": "form-control",
+                "placeholder": "Phone Number",
+            }
+        ),
+    )

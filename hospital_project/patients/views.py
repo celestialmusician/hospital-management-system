@@ -1,3 +1,5 @@
+import email
+
 from django.contrib import messages
 
 from django.shortcuts import render, redirect
@@ -13,6 +15,7 @@ from .models import Patient
 
 from doctors.models import Doctor
 from appointments.models import Appointment, Prescription
+from accounts.models import Profile
 
     
 @method_decorator(never_cache, name="dispatch")
@@ -69,8 +72,16 @@ class PatientHomeView(View):
             active_status=True
         )
 
+        email = request.session.get("patient_email")
+
+        patient = Profile.objects.filter(
+            email=email,
+            role="Patient",
+        ).first()
+
         context = {
-            "patient_email": request.session.get("patient_email"),
+            "patient_email": email,
+            "patient_name": patient.first_name if patient else "",
             "categories": categories,
         }
 

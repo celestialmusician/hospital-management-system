@@ -4,6 +4,7 @@ from .views import (
     DoctorAdminLoginView,
     DoctorAdminLogoutView,
     PatientLoginView,
+    PatientSignupView,
     VerifyOTPView,
     PatientLogoutView,
 )
@@ -28,6 +29,12 @@ urlpatterns = [
         PatientLoginView.as_view(),
         name="patient-login",
     ),
+
+    path(
+    "patient-signup/",
+    PatientSignupView.as_view(),
+    name="patient-signup",
+),
 
     path(
         "verify-otp/",

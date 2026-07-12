@@ -6,7 +6,7 @@ from django.views import View
 from django.contrib import messages
 import threading
 
-from .forms import DoctorAdminLoginForm, PatientLoginForm
+from .forms import (DoctorAdminLoginForm, PatientLoginForm, PatientSignupForm,)
 from .models import Profile, OTP
 from hospital_project.utility import send_email
 from patients.models import Patient
@@ -182,6 +182,119 @@ class PatientLoginView(View):
         messages.success(
             request,
             "OTP has been sent to your email.",
+        )
+
+        return redirect("verify-otp")
+    
+
+class PatientSignupView(View):
+
+    template = "accounts/patient-signup.html"
+    form_class = PatientSignupForm
+
+    def get(self, request, *args, **kwargs):
+
+        form = self.form_class()
+
+        return render(
+            request,
+            self.template,
+            {
+                "form": form,
+            },
+        )
+
+    def post(self, request, *args, **kwargs):
+
+        form = self.form_class(request.POST)
+
+        if not form.is_valid():
+
+            return render(
+                request,
+                self.template,
+                {
+                    "form": form,
+                },
+            )
+
+        name = form.cleaned_data["name"]
+        email = form.cleaned_data["email"]
+        phone = form.cleaned_data["phone"]
+
+        if Profile.objects.filter(
+            email=email,
+            role="Patient",
+        ).exists():
+
+            messages.warning(
+                request,
+                "Patient already exists. Please login.",
+            )
+
+            return redirect("patient-login")
+
+        username = email.split("@")[0]
+
+        user = Profile.objects.create(
+            username=username,
+            email=email,
+            first_name=name,
+            role="Patient",
+        )
+
+        user.set_password("patient123")
+        user.save()
+
+        Patient.objects.create(
+            name=name,
+            email=email,
+            phone=phone,
+        )
+
+        otp_obj, created = OTP.objects.get_or_create(
+            profile=user,
+        )
+
+        otp = otp_obj.generate_otp()
+
+        request.session["patient_email"] = user.email
+
+        subject = "HealthCare Hospital - Signup Verification Code"
+
+        try:
+
+            thread = threading.Thread(
+                target=send_email,
+                args=(
+                    subject,
+                    otp,
+                    user.email,
+                ),
+            )
+
+            thread.start()
+
+        except Exception as e:
+
+            print(e)
+
+            messages.error(
+                request,
+                "Unable to send OTP email.",
+            )
+
+            return render(
+                request,
+                self.template,
+                {
+                    "form": form,
+                },
+            )
+
+        messages.success(
+            request,
+            "Account created successfully. Please verify the OTP sent to your email.",
         )
 
         return redirect("verify-otp")
