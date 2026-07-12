@@ -52,7 +52,8 @@ class DoctorAdminLoginView(View):
 
                 print("========== LOGIN DEBUG ==========")
                 print("Email :", user.email)
-                print("Role  :", user.role)
+                print("Username :", user.username)
+                print("Role :", user.role)
                 print("================================")
 
                 login(request, user)

@@ -1,133 +1,1290 @@
-{% extends 'base.html' %}
+{% extends "base.html" %}
+{% load static %}
+
 {% block content %}
 
-<div class="container">
-	<div class="row">
-		<aside class="col-md-3">
-			<div class="panel panel-default">
-				<div class="panel-heading">
-					<h4>HMS</h4>
-				</div>
-				<div class="list-group">
-					<a class="list-group-item active">Dashboard</a>
-					<a class="list-group-item">Availability</a>
-					<a class="list-group-item">Patients</a>
-					<a class="list-group-item">Prescriptions</a>
-					<a class="list-group-item">Profile</a>
-					<a href="{% url 'doctor-admin-logout' %}"
-   class="list-group-item text-danger">
+<style>
 
-    <i class="bi bi-box-arrow-right"></i>
+body{
+    background:#f4f7fb;
+    font-family:'Segoe UI',sans-serif;
+}
 
-    Logout
+.dashboard{
+    padding:35px 0;
+}
+
+.sidebar{
+    background:#0f172a;
+    border-radius:20px;
+    min-height:92vh;
+    padding:30px 20px;
+    box-shadow:0 15px 40px rgba(0,0,0,.08);
+}
+
+.profile-box{
+    text-align:center;
+    margin-bottom:35px;
+}
+
+.profile-box img{
+    width:110px;
+    height:110px;
+    border-radius:50%;
+    object-fit:cover;
+    border:4px solid #fff;
+}
+
+.profile-box h3{
+    color:#fff;
+    margin-top:15px;
+    font-size:24px;
+    font-weight:700;
+}
+
+.profile-box p{
+    color:#cbd5e1;
+    margin-bottom:0;
+}
+
+.menu{
+    list-style:none;
+    padding:0;
+    margin:0;
+}
+
+.menu li{
+    margin-bottom:10px;
+}
+
+.menu li a{
+
+    display:block;
+    padding:14px 18px;
+    border-radius:12px;
+    text-decoration:none;
+    color:#e2e8f0;
+    transition:.3s;
+    font-weight:600;
+
+}
+
+.menu li a:hover{
+
+    background:#2563eb;
+    color:#fff;
+
+}
+
+.menu li a.active{
+
+    background:#2563eb;
+    color:#fff;
+
+}
+
+.logout{
+
+    background:#dc2626 !important;
+    color:#fff !important;
+
+}
+
+.main-content{
+
+    padding-left:25px;
+
+}
+
+.top-card{
+
+    background:#fff;
+    border-radius:20px;
+    padding:30px;
+    box-shadow:0 10px 30px rgba(0,0,0,.05);
+    margin-bottom:30px;
+
+}
+
+.top-card h2{
+
+    margin:0;
+    font-weight:700;
+
+}
+
+.top-card p{
+
+    color:#64748b;
+    margin-top:10px;
+
+}
+
+.online{
+
+    background:#22c55e;
+    color:#fff;
+    padding:10px 18px;
+    border-radius:50px;
+    display:inline-block;
+    font-weight:600;
+
+}
+
+.stat-card{
+
+    border:none;
+    border-radius:18px;
+    padding:25px;
+    color:#fff;
+    margin-bottom:25px;
+    box-shadow:0 10px 20px rgba(0,0,0,.08);
+
+}
+
+.stat-card i{
+
+    font-size:34px;
+    margin-bottom:15px;
+
+}
+
+.stat-card h3{
+
+    font-size:32px;
+    font-weight:700;
+    margin-bottom:5px;
+
+}
+
+.stat-card p{
+
+    margin:0;
+    opacity:.9;
+
+}
+
+.blue{
+
+    background:linear-gradient(135deg,#2563eb,#1d4ed8);
+
+}
+
+.green{
+
+    background:linear-gradient(135deg,#16a34a,#15803d);
+
+}
+
+.orange{
+
+    background:linear-gradient(135deg,#f59e0b,#d97706);
+
+}
+
+.red{
+
+    background:linear-gradient(135deg,#ef4444,#dc2626);
+
+}
+
+</style>
+
+<div class="container-fluid dashboard">
+
+<div class="row">
+
+<div class="col-lg-3">
+
+<div class="sidebar">
+
+<div class="profile-box">
+
+{% if doctor.photo %}
+
+<img src="{{ doctor.photo.url }}">
+
+{% else %}
+
+<img src="{% static 'images/doctor.png' %}">
+
+{% endif %}
+
+<h3>
+
+Dr. {{ doctor.name }}
+
+</h3>
+
+<p>
+
+{{ doctor.category.name }}
+
+</p>
+
+</div>
+
+<ul class="menu">
+
+<li>
+
+<a href="{% url 'doctor-dashboard' %}" class="active">
+
+<i class="fa fa-home"></i>
+
+Dashboard
 
 </a>
-				</div>
-			</div>
-		</aside>
 
-		<main class="col-md-9">
-			<div class="row">
-				<div class="col-xs-8">
-					<h2>Doctor Dashboard</h2>
-					<p class="text-muted">Welcome back, Dr. John</p>
-				</div>
-				<div class="col-xs-4 text-right">
-					<a class="btn btn-primary" href="#">Edit Profile</a>
-				</div>
-			</div>
+</li>
 
-			<div class="row" style="margin-top:20px">
-				<div class="col-md-3">
-					<div class="panel panel-default text-center">
-						<div class="panel-body">
-							<small>Total Patients</small>
-							<h3>245</h3>
-						</div>
-					</div>
-				</div>
-				<div class="col-md-3">
-					<div class="panel panel-default text-center">
-						<div class="panel-body">
-							<small>Today's Appointments</small>
-							<h3>18</h3>
-						</div>
-					</div>
-				</div>
-				<div class="col-md-3">
-					<div class="panel panel-default text-center">
-						<div class="panel-body">
-							<small>Pending</small>
-							<h3>6</h3>
-						</div>
-					</div>
-				</div>
-				<div class="col-md-3">
-					<div class="panel panel-default text-center">
-						<div class="panel-body">
-							<small>Completed</small>
-							<h3>12</h3>
-						</div>
-					</div>
-				</div>
-			</div>
+<li>
 
-			<div class="row" style="margin-top:20px">
-				<div class="col-lg-8">
-					<div class="panel panel-default">
-						<div class="panel-heading"><h4>Today's Appointments</h4></div>
-						<div class="panel-body">
-							<table class="table table-striped">
-								<thead>
-									<tr><th>Time</th><th>Patient</th><th>Department</th><th>Status</th><th></th></tr>
-								</thead>
-								<tbody>
-									<tr><td>09:00</td><td>Aswin</td><td>General</td><td><span class="label label-warning">Waiting</span></td><td><a class="btn btn-xs btn-success">Prescription</a></td></tr>
-									<tr><td>10:00</td><td>Rahul</td><td>Cardiology</td><td><span class="label label-primary">Booked</span></td><td><a class="btn btn-xs btn-success">Prescription</a></td></tr>
-									<tr><td>11:00</td><td>Anu</td><td>Dental</td><td><span class="label label-success">Completed</span></td><td><a class="btn btn-xs btn-default">View</a></td></tr>
-								</tbody>
-							</table>
-						</div>
-					</div>
+<a href="{% url 'doctor_appointments' %}">
 
-					<div class="panel panel-default">
-						<div class="panel-heading"><h4>Add Prescription</h4></div>
-						<div class="panel-body">
-							<form>
-								<div class="row">
-									<div class="col-md-6"><div class="form-group"><input class="form-control" placeholder="Patient Name"></div></div>
-									<div class="col-md-6"><div class="form-group"><input class="form-control" placeholder="Disease"></div></div>
-									<div class="col-md-12"><div class="form-group"><textarea class="form-control" rows="4" placeholder="Medicines & Notes"></textarea></div></div>
-									<div class="col-md-6"><div class="form-group"><input type="date" class="form-control"></div></div>
-									<div class="col-md-6"><button class="btn btn-primary btn-block">Save Prescription</button></div>
-								</div>
-							</form>
-						</div>
-					</div>
-				</div>
+<i class="fa fa-calendar"></i>
 
-				<div class="col-lg-4">
-					<div class="panel panel-default">
-						<div class="panel-heading"><h4>Availability</h4></div>
-						<div class="panel-body">
-							<input type="date" class="form-control" style="margin-bottom:10px">
-							<button class="btn btn-success btn-block">Save Available Date</button>
-						</div>
-					</div>
+Appointments
 
-					<div class="panel panel-default">
-						<div class="panel-heading"><h4>Doctor Profile</h4></div>
-						<div class="panel-body">
-							<p><strong>Name:</strong> Dr. John</p>
-							<p><strong>Specialization:</strong> Cardiology</p>
-							<p><strong>Email:</strong> doctor@example.com</p>
-							<p><strong>Phone:</strong> +91 9876543210</p>
-						</div>
-					</div>
-				</div>
-			</div>
+</a>
 
-		</main>
-	</div>
+</li>
+
+<li>
+
+<a href="#">
+
+<i class="fa fa-users"></i>
+
+Patients
+
+</a>
+
+</li>
+
+<li>
+
+<a href="#">
+
+<i class="fa fa-medkit"></i>
+
+Prescriptions
+
+</a>
+
+</li>
+
+<li>
+
+<a href="{% url 'availability-list' %}">
+
+<i class="fa fa-clock-o"></i>
+
+Availability
+
+</a>
+
+</li>
+
+<li>
+
+<a href="#">
+
+<i class="fa fa-user-md"></i>
+
+Profile
+
+</a>
+
+</li>
+
+<li>
+
+<a href="{% url 'doctor-admin-logout' %}" class="logout">
+
+<i class="fa fa-sign-out"></i>
+
+Logout
+
+</a>
+
+</li>
+
+</ul>
+
 </div>
+
+</div>
+
+<div class="col-lg-9">
+
+<div class="main-content">
+
+<div class="top-card">
+
+<div class="row align-items-center">
+
+<div class="col-md-8">
+
+<h2>
+
+Welcome Back,
+
+Dr. {{ doctor.name }}
+
+</h2>
+
+<p>
+
+Manage appointments, patients, prescriptions and your availability from one dashboard.
+
+</p>
+
+</div>
+
+<div class="col-md-4 text-end">
+
+<span class="online">
+
+<i class="fa fa-circle"></i>
+
+Online
+
+</span>
+
+</div>
+
+</div>
+
+</div>
+
+<div class="row">
+
+<div class="col-md-3">
+
+<div class="stat-card blue">
+
+<i class="fa fa-users"></i>
+
+<h3>
+
+{{ total_patients }}
+
+</h3>
+
+<p>
+
+Patients
+
+</p>
+
+</div>
+
+</div>
+
+<div class="col-md-3">
+
+<div class="stat-card green">
+
+<i class="fa fa-calendar-check-o"></i>
+
+<h3>
+
+{{ total_appointments }}
+
+</h3>
+
+<p>
+
+Appointments
+
+</p>
+
+</div>
+
+</div>
+
+<div class="col-md-3">
+
+<div class="stat-card orange">
+
+<i class="fa fa-file-text-o"></i>
+
+<h3>
+
+{{ total_prescriptions }}
+
+</h3>
+
+<p>
+
+Prescriptions
+
+</p>
+
+</div>
+
+</div>
+
+<div class="col-md-3">
+
+<div class="stat-card red">
+
+<i class="fa fa-clock-o"></i>
+
+<h3>
+
+{{ upcoming }}
+
+</h3>
+
+<p>
+
+Upcoming
+
+</p>
+
+</div>
+
+</div>
+
+</div>
+
+
+
+<div class="card border-0 shadow-sm rounded-4 mb-4">
+
+    <div class="card-header bg-white border-0 py-3">
+
+        <div class="d-flex justify-content-between align-items-center">
+
+            <h4 class="mb-0">
+
+                <i class="fa fa-calendar text-primary"></i>
+
+                Recent Appointments
+
+            </h4>
+
+            <a href="{% url 'doctor_appointments' %}"
+               class="btn btn-primary btn-sm">
+
+                View All
+
+            </a>
+
+        </div>
+
+    </div>
+
+    <div class="card-body p-0">
+
+        <div class="table-responsive">
+
+            <table class="table table-hover align-middle mb-0">
+
+                <thead class="table-light">
+
+                    <tr>
+
+                        <th>#</th>
+
+                        <th>Patient</th>
+
+                        <th>Date</th>
+
+                        <th>Time</th>
+
+                        <th>Status</th>
+
+                        <th class="text-center">
+
+                            Action
+
+                        </th>
+
+                    </tr>
+
+                </thead>
+
+                <tbody>
+
+                {% for appointment in appointments %}
+
+                    <tr>
+
+                        <td>
+
+                            {{ forloop.counter }}
+
+                        </td>
+
+                        <td>
+
+                            <strong>
+
+                                {{ appointment.patient.name }}
+
+                            </strong>
+
+                            <br>
+
+                            <small class="text-muted">
+
+                                {{ appointment.patient.email }}
+
+                            </small>
+
+                        </td>
+
+                        <td>
+
+                            {{ appointment.date }}
+
+                        </td>
+
+                        <td>
+
+                            {{ appointment.time_slot }}
+
+                        </td>
+
+                        <td>
+
+                            {% if appointment.status == "Upcoming" %}
+
+                                <span class="badge bg-warning text-dark">
+
+                                    Upcoming
+
+                                </span>
+
+                            {% elif appointment.status == "Completed" %}
+
+                                <span class="badge bg-success">
+
+                                    Completed
+
+                                </span>
+
+                            {% else %}
+
+                                <span class="badge bg-danger">
+
+                                    Cancelled
+
+                                </span>
+
+                            {% endif %}
+
+                        </td>
+
+                        <td class="text-center">
+
+                            {% if appointment.status == "Completed" %}
+
+                                <a href="{% url 'add_prescription' appointment.id %}"
+                                   class="btn btn-outline-success btn-sm">
+
+                                    <i class="fa fa-eye"></i>
+
+                                    View
+
+                                </a>
+
+                            {% else %}
+
+                                <a href="{% url 'add_prescription' appointment.id %}"
+                                   class="btn btn-success btn-sm">
+
+                                    <i class="fa fa-plus-circle"></i>
+
+                                    Prescription
+
+                                </a>
+
+                            {% endif %}
+
+                        </td>
+
+                    </tr>
+
+                {% empty %}
+
+                    <tr>
+
+                        <td colspan="6"
+                            class="text-center py-5">
+
+                            <i class="fa fa-calendar-times-o fa-3x text-muted mb-3"></i>
+
+                            <br><br>
+
+                            <strong>
+
+                                No Appointments Found
+
+                            </strong>
+
+                        </td>
+
+                    </tr>
+
+                {% endfor %}
+
+                </tbody>
+
+            </table>
+
+        </div>
+
+    </div>
+
+</div>
+
+
+<div class="card border-0 shadow-sm rounded-4 mb-4">
+
+    <div class="card-header bg-white border-0 py-3">
+
+        <div class="d-flex justify-content-between align-items-center">
+
+            <h4 class="mb-0">
+
+                <i class="fa fa-medkit text-success"></i>
+
+                Recent Prescriptions
+
+            </h4>
+
+            <span class="badge bg-success">
+
+                {{ total_prescriptions }}
+
+            </span>
+
+        </div>
+
+    </div>
+
+    <div class="card-body">
+
+        {% if prescriptions %}
+
+        <div class="row">
+
+            {% for prescription in prescriptions %}
+
+            <div class="col-lg-6 mb-4">
+
+                <div class="card border-0 shadow-sm h-100 rounded-4">
+
+                    <div class="card-body">
+
+                        <div class="d-flex justify-content-between align-items-start">
+
+                            <div>
+
+                                <h5 class="fw-bold mb-1">
+
+                                    {{ prescription.appointment.patient.name }}
+
+                                </h5>
+
+                                <small class="text-muted">
+
+                                    {{ prescription.appointment.date }}
+
+                                </small>
+
+                            </div>
+
+                            <span class="badge bg-success">
+
+                                Completed
+
+                            </span>
+
+                        </div>
+
+                        <hr>
+
+                        <p class="mb-2">
+
+                            <strong>
+
+                                Medicines
+
+                            </strong>
+
+                        </p>
+
+                        <div class="bg-light rounded-3 p-3 mb-3">
+
+                            {{ prescription.medicines|truncatechars:120 }}
+
+                        </div>
+
+                        <p class="mb-2">
+
+                            <strong>
+
+                                Dosage
+
+                            </strong>
+
+                        </p>
+
+                        <div class="bg-light rounded-3 p-3 mb-3">
+
+                            {{ prescription.dosage|truncatechars:100 }}
+
+                        </div>
+
+                        {% if prescription.notes %}
+
+                        <p class="mb-2">
+
+                            <strong>
+
+                                Notes
+
+                            </strong>
+
+                        </p>
+
+                        <div class="alert alert-light border">
+
+                            {{ prescription.notes|truncatechars:120 }}
+
+                        </div>
+
+                        {% endif %}
+
+                        {% if prescription.follow_up_date %}
+
+                        <div class="alert alert-info">
+
+                            <i class="fa fa-calendar"></i>
+
+                            <strong>
+
+                                Follow Up :
+
+                            </strong>
+
+                            {{ prescription.follow_up_date }}
+
+                        </div>
+
+                        {% endif %}
+
+                        <div class="d-grid">
+
+                            <a href="{% url 'add_prescription' prescription.appointment.id %}"
+                               class="btn btn-outline-primary rounded-pill">
+
+                                <i class="fa fa-eye"></i>
+
+                                View / Edit Prescription
+
+                            </a>
+
+                        </div>
+
+                    </div>
+
+                </div>
+
+            </div>
+
+            {% endfor %}
+
+        </div>
+
+        {% else %}
+
+        <div class="text-center py-5">
+
+            <i class="fa fa-file-text-o fa-5x text-muted mb-4"></i>
+
+            <h4>
+
+                No Prescriptions Available
+
+            </h4>
+
+            <p class="text-muted">
+
+                Prescriptions created for your patients will appear here.
+
+            </p>
+
+        </div>
+
+        {% endif %}
+
+    </div>
+
+</div>
+
+<div class="row">
+
+    <!-- Doctor Profile -->
+
+    <div class="col-lg-5">
+
+        <div class="card border-0 shadow-sm rounded-4 mb-4">
+
+            <div class="card-header bg-white border-0 py-3">
+
+                <h4 class="mb-0">
+
+                    <i class="fa fa-user-md text-primary"></i>
+
+                    Doctor Profile
+
+                </h4>
+
+            </div>
+
+            <div class="card-body text-center">
+
+                {% if doctor.photo %}
+
+                    <img
+                        src="{{ doctor.photo.url }}"
+                        class="rounded-circle shadow mb-3"
+                        style="width:130px;height:130px;object-fit:cover;"
+                    >
+
+                {% else %}
+
+                    <img
+                        src="{% static 'images/doctor.png' %}"
+                        class="rounded-circle shadow mb-3"
+                        style="width:130px;height:130px;"
+                    >
+
+                {% endif %}
+
+                <h3 class="fw-bold">
+
+                    Dr. {{ doctor.name }}
+
+                </h3>
+
+                <p class="text-primary fw-semibold">
+
+                    {{ doctor.category.name }}
+
+                </p>
+
+                <hr>
+
+                <div class="text-start">
+
+                    <p>
+
+                        <i class="fa fa-envelope text-primary"></i>
+
+                        <strong>Email :</strong>
+
+                        {{ doctor.profile.email }}
+
+                    </p>
+
+                    <p>
+
+                        <i class="fa fa-phone text-success"></i>
+
+                        <strong>Contact :</strong>
+
+                        {{ doctor.contact_number }}
+
+                    </p>
+
+                    <p>
+
+                        <i class="fa fa-briefcase text-warning"></i>
+
+                        <strong>Experience :</strong>
+
+                        {{ doctor.experience }} Years
+
+                    </p>
+
+                </div>
+
+            </div>
+
+        </div>
+
+    </div>
+
+    <!-- Quick Actions -->
+
+    <div class="col-lg-7">
+
+        <div class="card border-0 shadow-sm rounded-4 mb-4">
+
+            <div class="card-header bg-white border-0 py-3">
+
+                <h4 class="mb-0">
+
+                    <i class="fa fa-bolt text-warning"></i>
+
+                    Quick Actions
+
+                </h4>
+
+            </div>
+
+            <div class="card-body">
+
+                <div class="row">
+
+                    <div class="col-md-6 mb-3">
+
+                        <a
+                            href="{% url 'doctor_appointments' %}"
+                            class="btn btn-primary w-100 py-3">
+
+                            <i class="fa fa-calendar"></i>
+
+                            Appointments
+
+                        </a>
+
+                    </div>
+
+                    <div class="col-md-6 mb-3">
+
+                        <a
+                            href="{% url 'availability-list' %}"
+                            class="btn btn-success w-100 py-3">
+
+                            <i class="fa fa-clock-o"></i>
+
+                            Availability
+
+                        </a>
+
+                    </div>
+
+                    <div class="col-md-6 mb-3">
+
+                        <a
+                            href="#"
+                            class="btn btn-info w-100 py-3">
+
+                            <i class="fa fa-users"></i>
+
+                            Patients
+
+                        </a>
+
+                    </div>
+
+                    <div class="col-md-6 mb-3">
+
+                        <a
+                            href="{% url 'doctor-admin-logout' %}"
+                            class="btn btn-danger w-100 py-3">
+
+                            <i class="fa fa-sign-out"></i>
+
+                            Logout
+
+                        </a>
+
+                    </div>
+
+                </div>
+
+                <hr>
+
+                <h5 class="fw-bold mb-3">
+
+                    Appointment Summary
+
+                </h5>
+
+                <div class="row">
+
+                    <div class="col-4 text-center">
+
+                        <div class="border rounded-3 p-3">
+
+                            <h3 class="text-warning">
+
+                                {{ upcoming }}
+
+                            </h3>
+
+                            <small>
+
+                                Upcoming
+
+                            </small>
+
+                        </div>
+
+                    </div>
+
+                    <div class="col-4 text-center">
+
+                        <div class="border rounded-3 p-3">
+
+                            <h3 class="text-success">
+
+                                {{ completed }}
+
+                            </h3>
+
+                            <small>
+
+                                Completed
+
+                            </small>
+
+                        </div>
+
+                    </div>
+
+                    <div class="col-4 text-center">
+
+                        <div class="border rounded-3 p-3">
+
+                            <h3 class="text-danger">
+
+                                {{ cancelled }}
+
+                            </h3>
+
+                            <small>
+
+                                Cancelled
+
+                            </small>
+
+                        </div>
+
+                    </div>
+
+                </div>
+
+                <div class="alert alert-primary mt-4 mb-0">
+
+                    <i class="fa fa-lightbulb-o"></i>
+
+                    Keep your availability updated so that patients can book appointments easily.
+
+                </div>
+
+            </div>
+
+        </div>
+
+    </div>
+
+</div>
+
+<div class="card border-0 shadow-sm rounded-4 mt-4 mb-5">
+
+    <div class="card-body text-center">
+
+        <h4 class="fw-bold text-primary">
+
+            <i class="fa fa-hospital-o"></i>
+
+            HealthCare Hospital
+
+        </h4>
+
+        <p class="text-muted">
+
+            Doctor Management Dashboard
+
+        </p>
+
+        <hr>
+
+        <div class="row">
+
+            <div class="col-md-3">
+
+                <h3 class="text-primary">
+
+                    {{ total_patients }}
+
+                </h3>
+
+                <small class="text-muted">
+
+                    Patients
+
+                </small>
+
+            </div>
+
+            <div class="col-md-3">
+
+                <h3 class="text-success">
+
+                    {{ total_appointments }}
+
+                </h3>
+
+                <small class="text-muted">
+
+                    Appointments
+
+                </small>
+
+            </div>
+
+            <div class="col-md-3">
+
+                <h3 class="text-warning">
+
+                    {{ total_prescriptions }}
+
+                </h3>
+
+                <small class="text-muted">
+
+                    Prescriptions
+
+                </small>
+
+            </div>
+
+            <div class="col-md-3">
+
+                <h3 class="text-danger">
+
+                    {{ upcoming }}
+
+                </h3>
+
+                <small class="text-muted">
+
+                    Upcoming
+
+                </small>
+
+            </div>
+
+        </div>
+
+        <hr>
+
+        <p class="mb-0 text-muted">
+
+            © {% now "Y" %} HealthCare Hospital Management System
+
+            <br>
+
+            Developed using Django & Bootstrap
+
+        </p>
+
+    </div>
+
+</div>
+
+</div>
+
+</div>
+
+</div>
+
+</section>
+
+<style>
+
+.table td,
+.table th{
+
+    vertical-align:middle;
+
+}
+
+.card{
+
+    transition:.3s;
+
+}
+
+.card:hover{
+
+    transform:translateY(-4px);
+
+}
+
+.btn{
+
+    border-radius:10px;
+
+}
+
+.badge{
+
+    font-size:13px;
+
+    padding:8px 12px;
+
+}
+
+@media (max-width:991px){
+
+    .sidebar{
+
+        min-height:auto;
+
+        margin-bottom:25px;
+
+    }
+
+    .main-content{
+
+        padding-left:0;
+
+    }
+
+}
+
+@media (max-width:767px){
+
+    .top-card{
+
+        text-align:center;
+
+    }
+
+    .profile-box img{
+
+        width:90px;
+
+        height:90px;
+
+    }
+
+    .stat-card{
+
+        margin-bottom:20px;
+
+    }
+
+    .table-responsive{
+
+        border-radius:15px;
+
+    }
+
+}
+
+</style>
+
 {% endblock %}

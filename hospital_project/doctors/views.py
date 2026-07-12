@@ -1,27 +1,79 @@
-from django.shortcuts import render, get_object_or_404
+from django.shortcuts import render, get_object_or_404,redirect
 from django.views.generic import View
 
 from .models import Doctor, Category, Availability
 
 from django.utils.decorators import method_decorator
 from django.views.decorators.cache import never_cache
-
+from appointments.models import Appointment, Prescription
 
 @method_decorator(never_cache, name="dispatch")
+
+
 class DashboardView(View):
 
     template_name = "doctors/dashboard.html"
 
     def get(self, request):
 
-        total_doctors = Doctor.objects.count()
-        total_categories = Category.objects.count()
-        total_availability = Availability.objects.count()
+        if not request.user.is_authenticated:
+
+            return redirect("doctor-admin-login")
+
+        doctor = get_object_or_404(
+            Doctor,
+            profile=request.user,
+        )
+
+        appointments = Appointment.objects.filter(
+            doctor=doctor,
+        ).select_related(
+            "patient",
+        ).order_by("-date")
+
+        prescriptions = Prescription.objects.filter(
+            appointment__doctor=doctor,
+        ).select_related(
+            "appointment",
+            "appointment__patient",
+        ).order_by("-appointment__date")
+
+        total_patients = appointments.values(
+            "patient"
+        ).distinct().count()
+
+        upcoming = appointments.filter(
+            status="Upcoming",
+        ).count()
+
+        completed = appointments.filter(
+            status="Completed",
+        ).count()
+
+        cancelled = appointments.filter(
+            status="Cancelled",
+        ).count()
 
         context = {
-            "total_doctors": total_doctors,
-            "total_categories": total_categories,
-            "total_availability": total_availability,
+
+            "doctor": doctor,
+
+            "appointments": appointments,
+
+            "prescriptions": prescriptions,
+
+            "total_patients": total_patients,
+
+            "total_appointments": appointments.count(),
+
+            "total_prescriptions": prescriptions.count(),
+
+            "upcoming": upcoming,
+
+            "completed": completed,
+
+            "cancelled": cancelled,
+
         }
 
         return render(
