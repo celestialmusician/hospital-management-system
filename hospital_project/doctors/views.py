@@ -7,7 +7,7 @@ from django.utils.decorators import method_decorator
 from django.views.decorators.cache import never_cache
 from appointments.models import Appointment, Prescription
 from django.contrib import messages
-from .forms import DoctorProfileForm
+from .forms import DoctorProfileForm, AvailabilityForm
 
 @method_decorator(never_cache, name="dispatch")
 
@@ -262,3 +262,98 @@ class DoctorProfileUpdateView(View):
                 "doctor": doctor,
             },
         )
+    
+class AddAvailabilityView(View):
+
+    template_name = "doctors/add_availability.html"
+
+    def get(self, request):
+
+        if not request.user.is_authenticated:
+
+            return redirect("doctor-admin-login")
+
+        doctor = get_object_or_404(
+            Doctor,
+            profile=request.user,
+        )
+
+        form = AvailabilityForm()
+
+        availability = Availability.objects.filter(
+            doctor=doctor,
+        ).order_by("-date", "-start_time")
+
+        return render(
+            request,
+            self.template_name,
+            {
+                "form": form,
+                "availability": availability,
+            },
+        )
+
+    def post(self, request):
+
+        doctor = get_object_or_404(
+            Doctor,
+            profile=request.user,
+        )
+
+        form = AvailabilityForm(
+            request.POST,
+        )
+
+        if form.is_valid():
+
+            date = form.cleaned_data["date"]
+
+            start_time = form.cleaned_data["start_time"]
+
+            end_time = form.cleaned_data["end_time"]
+
+            exists = Availability.objects.filter(
+                doctor=doctor,
+                date=date,
+                start_time=start_time,
+                end_time=end_time,
+            ).exists()
+
+            if exists:
+
+                messages.warning(
+                    request,
+                    "This availability already exists."
+                )
+
+            else:
+
+                availability = form.save(
+                    commit=False,
+                )
+
+                availability.doctor = doctor
+
+                availability.save()
+
+                messages.success(
+                    request,
+                    "Availability added successfully."
+                )
+
+                return redirect(
+                    "doctor-availability",
+                )
+
+        availability = Availability.objects.filter(
+            doctor=doctor,
+        ).order_by("-date", "-start_time")
+
+        return render(
+            request,
+            self.template_name,
+            {
+                "form": form,
+                "availability": availability,
+            },
+        )    

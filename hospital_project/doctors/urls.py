@@ -7,6 +7,7 @@ from .views import (
     AvailabilityListView,
     DoctorProfileView,
     DoctorProfileUpdateView,
+    AddAvailabilityView,
 )
 
 urlpatterns = [
@@ -47,4 +48,10 @@ urlpatterns = [
         DoctorProfileUpdateView.as_view(),
         name="doctor-profile-edit",
     ),
+
+    path(
+    "availability/manage/",
+    AddAvailabilityView.as_view(),
+    name="doctor-availability",
+),
 ]

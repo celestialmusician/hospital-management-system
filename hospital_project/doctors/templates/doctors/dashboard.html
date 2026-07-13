@@ -6,8 +6,8 @@
 <style>
 
 body{
-    background:#f4f7fb;
-    font-family:'Segoe UI',sans-serif;
+    background:#f5f7fb;
+    font-family:"Segoe UI",sans-serif;
 }
 
 .dashboard{
@@ -16,8 +16,8 @@ body{
 
 .sidebar{
     background:#0f172a;
-    border-radius:20px;
     min-height:92vh;
+    border-radius:20px;
     padding:30px 20px;
     box-shadow:0 15px 40px rgba(0,0,0,.08);
 }
@@ -54,138 +54,97 @@ body{
 }
 
 .menu li{
-    margin-bottom:10px;
+    margin-bottom:12px;
 }
 
 .menu li a{
-
     display:block;
-    padding:14px 18px;
-    border-radius:12px;
     text-decoration:none;
     color:#e2e8f0;
+    padding:14px 18px;
+    border-radius:12px;
     transition:.3s;
     font-weight:600;
-
 }
 
 .menu li a:hover{
-
     background:#2563eb;
     color:#fff;
-
 }
 
 .menu li a.active{
-
     background:#2563eb;
     color:#fff;
-
 }
 
 .logout{
-
-    background:#dc2626 !important;
-    color:#fff !important;
-
+    background:#dc2626!important;
+    color:#fff!important;
 }
 
 .main-content{
-
     padding-left:25px;
-
 }
 
 .top-card{
-
     background:#fff;
     border-radius:20px;
     padding:30px;
     box-shadow:0 10px 30px rgba(0,0,0,.05);
     margin-bottom:30px;
-
 }
 
 .top-card h2{
-
-    margin:0;
     font-weight:700;
-
+    margin-bottom:10px;
 }
 
 .top-card p{
-
     color:#64748b;
-    margin-top:10px;
-
 }
 
 .online{
-
     background:#22c55e;
     color:#fff;
     padding:10px 18px;
-    border-radius:50px;
-    display:inline-block;
+    border-radius:30px;
     font-weight:600;
-
 }
 
 .stat-card{
-
     border:none;
     border-radius:18px;
-    padding:25px;
     color:#fff;
+    padding:25px;
     margin-bottom:25px;
     box-shadow:0 10px 20px rgba(0,0,0,.08);
-
 }
 
 .stat-card i{
-
-    font-size:34px;
+    font-size:32px;
     margin-bottom:15px;
-
 }
 
 .stat-card h3{
-
     font-size:32px;
     font-weight:700;
     margin-bottom:5px;
-
-}
-
-.stat-card p{
-
-    margin:0;
-    opacity:.9;
-
 }
 
 .blue{
-
     background:linear-gradient(135deg,#2563eb,#1d4ed8);
-
 }
 
 .green{
-
     background:linear-gradient(135deg,#16a34a,#15803d);
-
 }
 
 .orange{
-
     background:linear-gradient(135deg,#f59e0b,#d97706);
-
 }
 
 .red{
-
     background:linear-gradient(135deg,#ef4444,#dc2626);
-
 }
 
 </style>
@@ -252,31 +211,7 @@ Appointments
 
 <li>
 
-<a href="#">
-
-<i class="fa fa-users"></i>
-
-Patients
-
-</a>
-
-</li>
-
-<li>
-
-<a href="#">
-
-<i class="fa fa-medkit"></i>
-
-Prescriptions
-
-</a>
-
-</li>
-
-<li>
-
-<a href="{% url 'availability-list' %}">
+<a href="{% url 'doctor-availability' %}">
 
 <i class="fa fa-clock-o"></i>
 
@@ -288,11 +223,11 @@ Availability
 
 <li>
 
-<a href="{% url 'doctor-profile' %}" class="nav-link">
+<a href="{% url 'doctor-profile' %}">
 
-    <i class="fa fa-user-md"></i>
+<i class="fa fa-user-md"></i>
 
-    Profile
+Profile
 
 </a>
 
@@ -320,137 +255,135 @@ Logout
 
 <div class="main-content">
 
-<div class="top-card">
+    <div class="top-card">
 
-<div class="row align-items-center">
+    <div class="row align-items-center">
 
-<div class="col-md-8">
+        <div class="col-md-8">
 
-<h2>
+            <h2>
 
-Welcome Back,
+                Welcome Back,
 
-Dr. {{ doctor.name }}
+                Dr. {{ doctor.name }}
 
-</h2>
+            </h2>
 
-<p>
+            <p>
 
-Manage appointments, patients, prescriptions and your availability from one dashboard.
+                Manage appointments, prescriptions and your availability from one place.
 
-</p>
+            </p>
 
-</div>
+        </div>
 
-<div class="col-md-4 text-end">
+        <div class="col-md-4 text-end">
 
-<span class="online">
+            <span class="online">
 
-<i class="fa fa-circle"></i>
+                <i class="fa fa-circle"></i>
 
-Online
+                Online
 
-</span>
+            </span>
 
-</div>
+        </div>
 
-</div>
+    </div>
 
 </div>
 
 <div class="row">
 
-<div class="col-md-3">
+    <div class="col-md-3">
 
-<div class="stat-card blue">
+        <div class="stat-card blue">
 
-<i class="fa fa-users"></i>
+            <i class="fa fa-users"></i>
 
-<h3>
+            <h3>
 
-{{ total_patients }}
+                {{ total_patients }}
 
-</h3>
+            </h3>
 
-<p>
+            <p>
 
-Patients
+                Total Patients
 
-</p>
+            </p>
+
+        </div>
+
+    </div>
+
+    <div class="col-md-3">
+
+        <div class="stat-card green">
+
+            <i class="fa fa-calendar-check-o"></i>
+
+            <h3>
+
+                {{ total_appointments }}
+
+            </h3>
+
+            <p>
+
+                Appointments
+
+            </p>
+
+        </div>
+
+    </div>
+
+    <div class="col-md-3">
+
+        <div class="stat-card orange">
+
+            <i class="fa fa-file-text-o"></i>
+
+            <h3>
+
+                {{ total_prescriptions }}
+
+            </h3>
+
+            <p>
+
+                Prescriptions
+
+            </p>
+
+        </div>
+
+    </div>
+
+    <div class="col-md-3">
+
+        <div class="stat-card red">
+
+            <i class="fa fa-clock-o"></i>
+
+            <h3>
+
+                {{ upcoming }}
+
+            </h3>
+
+            <p>
+
+                Upcoming
+
+            </p>
+
+        </div>
+
+    </div>
 
 </div>
-
-</div>
-
-<div class="col-md-3">
-
-<div class="stat-card green">
-
-<i class="fa fa-calendar-check-o"></i>
-
-<h3>
-
-{{ total_appointments }}
-
-</h3>
-
-<p>
-
-Appointments
-
-</p>
-
-</div>
-
-</div>
-
-<div class="col-md-3">
-
-<div class="stat-card orange">
-
-<i class="fa fa-file-text-o"></i>
-
-<h3>
-
-{{ total_prescriptions }}
-
-</h3>
-
-<p>
-
-Prescriptions
-
-</p>
-
-</div>
-
-</div>
-
-<div class="col-md-3">
-
-<div class="stat-card red">
-
-<i class="fa fa-clock-o"></i>
-
-<h3>
-
-{{ upcoming }}
-
-</h3>
-
-<p>
-
-Upcoming
-
-</p>
-
-</div>
-
-</div>
-
-</div>
-
-
 
 <div class="card border-0 shadow-sm rounded-4 mb-4">
 
@@ -588,7 +521,7 @@ Upcoming
 
                                     <i class="fa fa-eye"></i>
 
-                                    View
+                                    View Prescription
 
                                 </a>
 
@@ -599,7 +532,7 @@ Upcoming
 
                                     <i class="fa fa-plus-circle"></i>
 
-                                    Prescription
+                                    Add Prescription
 
                                 </a>
 
@@ -613,8 +546,7 @@ Upcoming
 
                     <tr>
 
-                        <td colspan="6"
-                            class="text-center py-5">
+                        <td colspan="6" class="text-center py-5">
 
                             <i class="fa fa-calendar-times-o fa-3x text-muted mb-3"></i>
 
@@ -641,7 +573,6 @@ Upcoming
     </div>
 
 </div>
-
 
 <div class="card border-0 shadow-sm rounded-4 mb-4">
 
@@ -681,11 +612,11 @@ Upcoming
 
                     <div class="card-body">
 
-                        <div class="d-flex justify-content-between align-items-start">
+                        <div class="d-flex justify-content-between">
 
                             <div>
 
-                                <h5 class="fw-bold mb-1">
+                                <h5 class="fw-bold">
 
                                     {{ prescription.appointment.patient.name }}
 
@@ -709,7 +640,7 @@ Upcoming
 
                         <hr>
 
-                        <p class="mb-2">
+                        <p>
 
                             <strong>
 
@@ -725,7 +656,7 @@ Upcoming
 
                         </div>
 
-                        <p class="mb-2">
+                        <p>
 
                             <strong>
 
@@ -737,13 +668,13 @@ Upcoming
 
                         <div class="bg-light rounded-3 p-3 mb-3">
 
-                            {{ prescription.dosage|truncatechars:100 }}
+                            {{ prescription.dosage|truncatechars:120 }}
 
                         </div>
 
                         {% if prescription.notes %}
 
-                        <p class="mb-2">
+                        <p>
 
                             <strong>
 
@@ -769,7 +700,7 @@ Upcoming
 
                             <strong>
 
-                                Follow Up :
+                                Follow Up:
 
                             </strong>
 
@@ -782,7 +713,7 @@ Upcoming
                         <div class="d-grid">
 
                             <a href="{% url 'add_prescription' prescription.appointment.id %}"
-                               class="btn btn-outline-primary rounded-pill">
+                               class="btn btn-outline-primary">
 
                                 <i class="fa fa-eye"></i>
 
@@ -806,7 +737,7 @@ Upcoming
 
         <div class="text-center py-5">
 
-            <i class="fa fa-file-text-o fa-5x text-muted mb-4"></i>
+            <i class="fa fa-file-text-o fa-4x text-muted mb-3"></i>
 
             <h4>
 
@@ -816,7 +747,7 @@ Upcoming
 
             <p class="text-muted">
 
-                Prescriptions created for your patients will appear here.
+                Completed prescriptions will appear here.
 
             </p>
 
@@ -855,7 +786,7 @@ Upcoming
                     <img
                         src="{{ doctor.photo.url }}"
                         class="rounded-circle shadow mb-3"
-                        style="width:130px;height:130px;object-fit:cover;"
+                        style="width:140px;height:140px;object-fit:cover;"
                     >
 
                 {% else %}
@@ -863,7 +794,7 @@ Upcoming
                     <img
                         src="{% static 'images/doctor.png' %}"
                         class="rounded-circle shadow mb-3"
-                        style="width:130px;height:130px;"
+                        style="width:140px;height:140px;"
                     >
 
                 {% endif %}
@@ -916,6 +847,19 @@ Upcoming
 
                 </div>
 
+                <div class="d-grid mt-4">
+
+                    <a href="{% url 'doctor-profile-edit' %}"
+                       class="btn btn-warning">
+
+                        <i class="fa fa-pencil"></i>
+
+                        Edit Profile
+
+                    </a>
+
+                </div>
+
             </div>
 
         </div>
@@ -942,13 +886,12 @@ Upcoming
 
             <div class="card-body">
 
-                <div class="row">
+                <div class="row g-3">
 
-                    <div class="col-md-6 mb-3">
+                    <div class="col-md-6">
 
-                        <a
-                            href="{% url 'doctor_appointments' %}"
-                            class="btn btn-primary w-100 py-3">
+                        <a href="{% url 'doctor_appointments' %}"
+                           class="btn btn-primary w-100 py-3">
 
                             <i class="fa fa-calendar"></i>
 
@@ -958,39 +901,36 @@ Upcoming
 
                     </div>
 
-                    <div class="col-md-6 mb-3">
+                    <div class="col-md-6">
 
-                        <a
-                            href="{% url 'availability-list' %}"
-                            class="btn btn-success w-100 py-3">
+                        <a href="{% url 'doctor-availability' %}"
+                           class="btn btn-success w-100 py-3">
 
                             <i class="fa fa-clock-o"></i>
 
-                            Availability
+                            Manage Availability
 
                         </a>
 
                     </div>
 
-                    <div class="col-md-6 mb-3">
+                    <div class="col-md-6">
 
-                        <a
-                            href="#"
-                            class="btn btn-info w-100 py-3">
+                        <a href="{% url 'doctor-profile' %}"
+                           class="btn btn-info w-100 py-3">
 
-                            <i class="fa fa-users"></i>
+                            <i class="fa fa-user-md"></i>
 
-                            Patients
+                            My Profile
 
                         </a>
 
                     </div>
 
-                    <div class="col-md-6 mb-3">
+                    <div class="col-md-6">
 
-                        <a
-                            href="{% url 'doctor-admin-logout' %}"
-                            class="btn btn-danger w-100 py-3">
+                        <a href="{% url 'doctor-admin-logout' %}"
+                           class="btn btn-danger w-100 py-3">
 
                             <i class="fa fa-sign-out"></i>
 
@@ -1012,9 +952,9 @@ Upcoming
 
                 <div class="row">
 
-                    <div class="col-4 text-center">
+                    <div class="col-4">
 
-                        <div class="border rounded-3 p-3">
+                        <div class="border rounded-3 p-3 text-center">
 
                             <h3 class="text-warning">
 
@@ -1032,9 +972,9 @@ Upcoming
 
                     </div>
 
-                    <div class="col-4 text-center">
+                    <div class="col-4">
 
-                        <div class="border rounded-3 p-3">
+                        <div class="border rounded-3 p-3 text-center">
 
                             <h3 class="text-success">
 
@@ -1052,9 +992,9 @@ Upcoming
 
                     </div>
 
-                    <div class="col-4 text-center">
+                    <div class="col-4">
 
-                        <div class="border rounded-3 p-3">
+                        <div class="border rounded-3 p-3 text-center">
 
                             <h3 class="text-danger">
 
@@ -1078,7 +1018,7 @@ Upcoming
 
                     <i class="fa fa-lightbulb-o"></i>
 
-                    Keep your availability updated so that patients can book appointments easily.
+                    Keep your availability updated to receive more appointment bookings.
 
                 </div>
 
@@ -1089,6 +1029,8 @@ Upcoming
     </div>
 
 </div>
+
+<!-- Footer -->
 
 <div class="card border-0 shadow-sm rounded-4 mt-4 mb-5">
 
@@ -1180,7 +1122,7 @@ Upcoming
 
         <hr>
 
-        <p class="mb-0 text-muted">
+        <p class="text-muted mb-0">
 
             © {% now "Y" %} HealthCare Hospital Management System
 
@@ -1200,8 +1142,6 @@ Upcoming
 
 </div>
 
-</section>
-
 <style>
 
 .table td,
@@ -1219,7 +1159,7 @@ Upcoming
 
 .card:hover{
 
-    transform:translateY(-4px);
+    transform:translateY(-5px);
 
 }
 
@@ -1231,9 +1171,9 @@ Upcoming
 
 .badge{
 
-    font-size:13px;
-
     padding:8px 12px;
+
+    font-size:13px;
 
 }
 
@@ -1257,12 +1197,6 @@ Upcoming
 
 @media (max-width:767px){
 
-    .top-card{
-
-        text-align:center;
-
-    }
-
     .profile-box img{
 
         width:90px;
@@ -1271,15 +1205,15 @@ Upcoming
 
     }
 
-    .stat-card{
+    .top-card{
 
-        margin-bottom:20px;
+        text-align:center;
 
     }
 
-    .table-responsive{
+    .stat-card{
 
-        border-radius:15px;
+        margin-bottom:20px;
 
     }
 
