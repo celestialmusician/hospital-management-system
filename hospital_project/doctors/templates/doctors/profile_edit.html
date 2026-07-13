@@ -1,0 +1,149 @@
+{% extends "base.html" %}
+
+{% block content %}
+
+<div class="container py-5">
+
+    <div class="row justify-content-center">
+
+        <div class="col-lg-8">
+
+            <div class="card shadow-lg border-0 rounded-4">
+
+                <div class="card-header bg-warning text-dark py-4">
+
+                    <h3 class="mb-0">
+
+                        <i class="fa fa-pencil"></i>
+
+                        Edit Doctor Profile
+
+                    </h3>
+
+                </div>
+
+                <div class="card-body p-5">
+
+                    {% if messages %}
+
+                        {% for message in messages %}
+
+                            <div class="alert alert-success">
+
+                                {{ message }}
+
+                            </div>
+
+                        {% endfor %}
+
+                    {% endif %}
+
+                    <form method="POST"
+                          enctype="multipart/form-data">
+
+                        {% csrf_token %}
+
+                        <div class="text-center mb-4">
+
+                            {% if doctor.photo %}
+
+                                <img
+                                    src="{{ doctor.photo.url }}"
+                                    class="rounded-circle shadow mb-3"
+                                    style="width:170px;height:170px;object-fit:cover;"
+                                >
+
+                            {% endif %}
+
+                        </div>
+
+                        <div class="mb-3">
+
+                            <label>
+
+                                Name
+
+                            </label>
+
+                            {{ form.name }}
+
+                        </div>
+
+                        <div class="mb-3">
+
+                            <label>
+
+                                Profile Photo
+
+                            </label>
+
+                            {{ form.photo }}
+
+                        </div>
+
+                        <div class="mb-3">
+
+                            <label>
+
+                                Contact Number
+
+                            </label>
+
+                            {{ form.contact_number }}
+
+                        </div>
+
+                        <div class="mb-3">
+
+                            <label>
+
+                                Specialization
+
+                            </label>
+
+                            {{ form.category }}
+
+                        </div>
+
+                        <div class="mb-4">
+
+                            <label>
+
+                                Experience
+
+                            </label>
+
+                            {{ form.experience }}
+
+                        </div>
+
+                        <button
+                            class="btn btn-success">
+
+                            <i class="fa fa-save"></i>
+
+                            Save Changes
+
+                        </button>
+
+                        <a
+                            href="{% url 'doctor-profile' %}"
+                            class="btn btn-secondary">
+
+                            Cancel
+
+                        </a>
+
+                    </form>
+
+                </div>
+
+            </div>
+
+        </div>
+
+    </div>
+
+</div>
+
+{% endblock %}

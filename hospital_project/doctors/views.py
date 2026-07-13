@@ -6,6 +6,8 @@ from .models import Doctor, Category, Availability
 from django.utils.decorators import method_decorator
 from django.views.decorators.cache import never_cache
 from appointments.models import Appointment, Prescription
+from django.contrib import messages
+from .forms import DoctorProfileForm
 
 @method_decorator(never_cache, name="dispatch")
 
@@ -171,5 +173,92 @@ class AvailabilityListView(View):
             self.template_name,
             {
                 "availability": availability,
+            },
+        )
+    
+class DoctorProfileView(View):
+
+    template_name = "doctors/profile.html"
+
+    def get(self, request):
+
+        if not request.user.is_authenticated:
+
+            return redirect("doctor-admin-login")
+
+        doctor = get_object_or_404(
+            Doctor,
+            profile=request.user,
+        )
+
+        context = {
+            "doctor": doctor,
+        }
+
+        return render(
+            request,
+            self.template_name,
+            context,
+        )
+
+
+class DoctorProfileUpdateView(View):
+
+    template_name = "doctors/profile_edit.html"
+
+    def get(self, request):
+
+        if not request.user.is_authenticated:
+
+            return redirect("doctor-admin-login")
+
+        doctor = get_object_or_404(
+            Doctor,
+            profile=request.user,
+        )
+
+        form = DoctorProfileForm(
+            instance=doctor,
+        )
+
+        return render(
+            request,
+            self.template_name,
+            {
+                "form": form,
+                "doctor": doctor,
+            },
+        )
+
+    def post(self, request):
+
+        doctor = get_object_or_404(
+            Doctor,
+            profile=request.user,
+        )
+
+        form = DoctorProfileForm(
+            request.POST,
+            request.FILES,
+            instance=doctor,
+        )
+
+        if form.is_valid():
+
+            form.save()
+
+            messages.success(
+                request,
+                "Profile updated successfully."
+            )
+
+            return redirect("doctor-profile")
+
+        return render(
+            request,
+            self.template_name,
+            {
+                "form": form,
+                "doctor": doctor,
             },
         )
